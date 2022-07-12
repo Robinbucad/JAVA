@@ -52,7 +52,7 @@ public class main_persona {
         }
 
         listaPersonas.stream()
-                .filter(persona -> persona.dime_nombre() != null && persona.dime_poblacion() != null && persona.dime_poblacion() != null
+                .filter(persona -> persona.dime_nombre() != null && persona.dime_poblacion() != null
                 && persona.dime_edad().get() != "Desconocida" && Integer.parseInt(persona.dime_edad().get()) < 25) // Busco los datos según el ejercicio
                 .forEach(persona -> System.out.println("Nombre: " + persona.dime_nombre() + ". Población:" + persona.dime_poblacion() + ".Edad:" + persona.dime_edad()));
 
