@@ -8,9 +8,7 @@ public class Persona {
     private String poblacion;
     private String edad;
 
-    public Persona(){
 
-    }
 
     public Optional<String> dime_nombre(){
         return Optional.ofNullable(nombre);
