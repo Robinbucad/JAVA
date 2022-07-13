@@ -41,7 +41,7 @@ public class Controlador1{
     }*/
 
     @PostMapping("controlador1/addCiudad")
-    CiudadInt addCiudad(@RequestBody Ciudad ciudad){
+    CiudadInt addCiudad(@RequestBody Ciudad ciudad){ // Envio por el body la ciudad
         ciudadInt.addCiudad(ciudad);
         return ciudadInt;
     }
