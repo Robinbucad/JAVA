@@ -1,9 +1,5 @@
 package com.example.InyeccionDependencias;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
 public interface PersonaInt {
 
     String getNombre();

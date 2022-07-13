@@ -1,8 +1,6 @@
 package com.example.InyeccionDependencias;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,7 +16,7 @@ public class Controlador1{
     public String getPong(){
         return "Pong";
     }
-    
+
 
     @GetMapping("/controlador1/addPersona")
     PersonaInt addPersona(@RequestHeader Map<String , String> personaValues){
