@@ -10,6 +10,10 @@ public class Controlador2 {
 
     @Autowired
     PersonaInt personaInt;
+
+    @Autowired
+    CiudadInt ciudadInt;
+
     @GetMapping("/pong")
     public String getPing(){
         return "ping";
@@ -18,6 +22,11 @@ public class Controlador2 {
     PersonaInt getEdad2(){
         System.out.println(Integer.parseInt(personaInt.getEdad()) * 2);
         return personaInt;
+    }
+
+    @GetMapping("/controlador1/getCiudad")
+    CiudadInt getCiudadList(){
+        return ciudadInt;
     }
 
 

@@ -12,6 +12,9 @@ public class Controlador1{
     @Autowired
     PersonaInt personaInt;
 
+    @Autowired
+    CiudadInt ciudadInt;
+
     @GetMapping("/ping")
     public String getPong(){
         return "Pong";
@@ -37,6 +40,11 @@ public class Controlador1{
         return personaInt;
     }*/
 
+    @PostMapping("controlador1/addCiudad")
+    CiudadInt addCiudad(@RequestBody Ciudad ciudad){
+        ciudadInt.addCiudad(ciudad);
+        return ciudadInt;
+    }
 
 
 }
