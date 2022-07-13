@@ -26,9 +26,11 @@ public class main_persona {
 
                     if (split[1].isEmpty()){
                         persona.establece_poblacion("Desconocida");
+
                     }else { // Guardo el dato en la segunda posición del array
                         persona.establece_poblacion(split[1]);
                     }
+
 
                 }else {
                     persona.establece_nombre("Desconocida");
