@@ -30,10 +30,20 @@ public class ImpPersona implements IPersona{
 
     public Persona updatePersonaById(Persona persona, String id){
         Persona personaById = getPersonaById(id);
-        personaById.setName(persona.getName());
-        personaById.setLocation(persona.getLocation());
-        personaById.setAge(persona.getAge());
-        personaById.setId(persona.getId());
+        if(persona.getName() != null){
+            personaById.setName(persona.getName());
+        }
+        if (persona.getLocation() != null){
+            personaById.setLocation(persona.getLocation());
+        }
+        if (persona.getAge() != null){
+            personaById.setAge(persona.getAge());
+        }
+        if (persona.getId() != null){
+            personaById.setId(persona.getId());
+        }
+
+
         return personaById;
     }
 
