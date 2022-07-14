@@ -1,13 +1,13 @@
 package com.example.avanzandoControladores;
 
+import java.util.List;
+
 public interface IUser {
 
-    String getName();
-    String getAge();
-    String getSection();
+    void addUser(User user);
 
-    void setName(String name);
-    void setAge(String age);
-    void setSection(String section);
+    List<User> getUserList();
+
+    User getUserById(String id);
 
 }
