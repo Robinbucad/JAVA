@@ -26,11 +26,20 @@ public class Controller {
         return ipersona.getPersonaById(id);
     }
 
+    @RequestMapping(value = "/persona/{id}", method = RequestMethod.DELETE)
+    Persona deletePersonaById(@PathVariable String id){
+        return ipersona.deletePersonaById(id);
+    }
+
     @RequestMapping(value = "/persona/nombre/{name}", method = RequestMethod.GET)
     Persona getPersonaByName(@PathVariable String name){
         return ipersona.getPersonaByName(name);
     }
 
+    @RequestMapping(value = "/persona/{id}", method = RequestMethod.PUT)
+    Persona updatePersonaById(@RequestBody Persona persona, @PathVariable String id){
+        return ipersona.updatePersonaById(persona,id);
+    }
 
 
 }

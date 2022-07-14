@@ -8,6 +8,9 @@ public interface IPersona {
 
     Persona getPersonaById(String id);
     Persona getPersonaByName(String name);
+
+    Persona deletePersonaById(String id);
+    Persona updatePersonaById(Persona persona, String id);
     List<Persona> getListPersonas();
 
 }
