@@ -18,7 +18,7 @@ public class Controlador {
     }
 
     @PostMapping("/user")
-    IUser getUsers(@RequestBody User user){
+    IUser postUsers(@RequestBody User user){
         iuser.addUser(user);
         return iuser;
     }
@@ -26,6 +26,12 @@ public class Controlador {
     @GetMapping("/user/{id}")
     public User getUserById(@PathVariable String id){
         return iuser.getUserById(id);
+    }
+
+
+    @PutMapping("/user/")
+    public String putMethod(@RequestParam String name){
+        return "El param es "+ name;
     }
 
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -23,6 +24,8 @@ public class ImpUser implements IUser{
                 .orElse(null); // Si no encuentra ningun Id devovlerá null
         return user;
     }
+
+
     public void addUser(User user){
         userList.add(user);
     }
