@@ -5,38 +5,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/persona")
 public class Controller {
 
     @Autowired
     IPersona ipersona;
 
-    @RequestMapping(value = "/persona", method = RequestMethod.POST)
+    @PostMapping
     IPersona postPersona(@RequestBody Persona persona){
         ipersona.addPersona(persona);
         return ipersona;
     }
 
-    @RequestMapping(value = "/persona", method = RequestMethod.GET)
+    @GetMapping
     IPersona getListaPersonas(){
         return ipersona;
     }
 
-    @RequestMapping(value = "/persona/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     Persona getPersonaById(@PathVariable String id){
         return ipersona.getPersonaById(id);
     }
 
-    @RequestMapping(value = "/persona/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
     Persona deletePersonaById(@PathVariable String id){
         return ipersona.deletePersonaById(id);
     }
 
-    @RequestMapping(value = "/persona/nombre/{name}", method = RequestMethod.GET)
+    @GetMapping("/nombre/{name}")
     Persona getPersonaByName(@PathVariable String name){
         return ipersona.getPersonaByName(name);
     }
 
-    @RequestMapping(value = "/persona/{id}", method = RequestMethod.PUT)
+    @PutMapping("/{id}")
     Persona updatePersonaById(@RequestBody Persona persona, @PathVariable String id){
         return ipersona.updatePersonaById(persona,id);
     }

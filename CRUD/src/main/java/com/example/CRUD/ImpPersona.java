@@ -24,7 +24,7 @@ public class ImpPersona implements IPersona{
 
     public Persona getPersonaByName(String name){
         Persona persona = personaList.stream()
-                .filter(p-> name.equals(p.getName())).findFirst().orElse(null);
+                .filter(p-> name.equalsIgnoreCase(p.getName())).findFirst().orElse(null);
         return persona;
     }
 
