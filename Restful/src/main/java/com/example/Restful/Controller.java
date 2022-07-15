@@ -1,6 +1,8 @@
 package com.example.Restful;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -25,6 +27,12 @@ public class Controller {
     @Value("${password}")
     public String password;
 
+    @Autowired
+    Profile1 profile1;
+
+    @Autowired
+    Profile2 profile2;
+
     @GetMapping("/ping")
     public String getPong(){
         return "pong";
@@ -43,6 +51,19 @@ public class Controller {
     @PostConstruct
     public void callAll(){
         System.out.println("Aqui van todas las variables: " + var1 + " " + var2 + " " + url + " " + password);
+    }
+
+    // No entiendo enunciado de la segunda parte
+    @GetMapping("/perfil")
+    Profile1 getProfile1(){
+        System.out.println("Hola");
+        return profile1;
+    }
+
+    @GetMapping("/perfil2")
+    Profile2 getProfile2(){
+        System.out.println("Perfil 2");
+        return profile2;
     }
 
 }
