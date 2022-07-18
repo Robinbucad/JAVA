@@ -11,6 +11,6 @@ public interface IPersona {
 
     PersonaOutputDTO findByUsername(String username) throws Exception;
     List<PersonaOutputDTO> getALlPersonas();
-
     PersonaOutputDTO deleteUser(int idPersona) throws Exception;
+    PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, int idPersona) throws Exception;
 }
