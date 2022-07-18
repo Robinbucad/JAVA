@@ -54,6 +54,21 @@ public class PersonaService implements IPersona{
         }
     }
 
+        public PersonaOutputDTO deleteUser(int idPersona)throws Exception{
 
+            if (personaRepository.findByIdPersona(idPersona) == null){
+                throw new Exception("404, usuario no existe");
+            }else {
+                List<Persona> personas = personaRepository.findAll();
+                PersonaOutputDTO personaOutputDTO = personaRepository.findByIdPersona(idPersona);
+                for (Persona e:personas){
+                    if (e.getIdPersona() == idPersona){
+                        personaRepository.delete(e);
+                    }
+                }
+                return personaOutputDTO;
+            }
+
+        }
 
 }
