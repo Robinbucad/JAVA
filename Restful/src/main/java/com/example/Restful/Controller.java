@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 
 @RestController
-
 public class Controller {
+
     @Value("${var1}")
     public String var1;
 

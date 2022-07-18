@@ -27,7 +27,7 @@ public class ImpUser implements IUser{
 
 
     public void addUser(User user){
-        userList.add(user);z
+        userList.add(user);
     }
 
 }
