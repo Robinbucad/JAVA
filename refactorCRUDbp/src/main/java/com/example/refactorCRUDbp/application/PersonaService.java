@@ -7,6 +7,7 @@ import com.example.refactorCRUDbp.infraestructure.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,16 @@ public class PersonaService implements IPersona{
     @Autowired
     PersonaRepository personaRepository;
 
+    public List<PersonaOutputDTO> getALlPersonas(){
+        List<Persona> personas = personaRepository.findAll();
+        List<PersonaOutputDTO> personasDTO = new ArrayList<>();
+        for (Persona e: personas){
+            PersonaOutputDTO persona = new PersonaOutputDTO(e);
+            personasDTO.add(persona);
+        }
+        return personasDTO;
+
+    }
     public PersonaOutputDTO createUser(PersonaInputDTO personaInputDTO) throws Exception{
        if (personaInputDTO.getUsername().length() < 6 || personaInputDTO.getUsername().length() > 10){
            throw new Exception("El nombre de usuario debe tener entre 6 y 10 caracteres");
@@ -42,6 +53,7 @@ public class PersonaService implements IPersona{
             return personaRepository.findByUsername(username);
         }
     }
+
 
 
 }

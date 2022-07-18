@@ -5,6 +5,7 @@ import com.example.refactorCRUDbp.infraestructure.controler.output.PersonaOutput
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonaRepository extends JpaRepository<Persona, String> {
+
     PersonaOutputDTO findByIdPersona(int idPersona);
     PersonaOutputDTO findByUsername(String username);
 }

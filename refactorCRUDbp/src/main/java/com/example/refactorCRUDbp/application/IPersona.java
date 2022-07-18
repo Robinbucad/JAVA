@@ -10,4 +10,6 @@ public interface IPersona {
     PersonaOutputDTO getUserByID(int idPersona) throws Exception;
 
     PersonaOutputDTO findByUsername(String username) throws Exception;
+    List<PersonaOutputDTO> getALlPersonas();
+
 }

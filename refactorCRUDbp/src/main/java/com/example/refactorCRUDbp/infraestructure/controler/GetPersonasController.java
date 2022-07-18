@@ -23,6 +23,12 @@ public class GetPersonasController {
     }
 
 
+    @GetMapping("/user")
+    public List<PersonaOutputDTO> getALlPersonas(){
+        return personaService.getALlPersonas();
+    }
+
+
     @GetMapping("/user/id/{idPersona}")
     public PersonaOutputDTO getUserByID(@PathVariable int idPersona)throws Exception{
         return personaService.getUserByID(idPersona);
