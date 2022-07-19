@@ -17,7 +17,7 @@ public class PostPersonaController {
     PersonaService personaService;
 
     @PostMapping("/user")
-    public ResponseEntity<Object> createUser(@RequestBody PersonaInputDTO personaInputDTO) throws Exception{
+    public ResponseEntity<Object> createUser(@RequestBody PersonaInputDTO personaInputDTO){
         try {
             PersonaOutputDTO personaOutputDTOPost = personaService.createUser(personaInputDTO);
             return new ResponseEntity<>(personaOutputDTOPost, HttpStatus.CREATED);

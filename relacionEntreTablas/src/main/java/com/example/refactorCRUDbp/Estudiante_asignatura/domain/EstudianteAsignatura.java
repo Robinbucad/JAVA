@@ -11,7 +11,7 @@ import java.util.Date;
 public class EstudianteAsignatura {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String idAsignatura;
     private String idStudent;
 
