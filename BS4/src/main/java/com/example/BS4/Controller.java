@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-    @Value("${key.VAR1}")
+    @Value("${VAR1}")
     private String var1;
 
-    @Value("${key.VAR2}")
+    @Value("${VAR2}")
     private String var2;
 
-    @Value("${key.VAR3: No tiene valor}")
+    @Value("${VAR3: No tiene valor}")
     private String var3;
 
     @GetMapping("/valores")
