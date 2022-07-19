@@ -1,8 +1,7 @@
-package com.example.refactorCRUDbp.infraestructure.controler;
+package com.example.refactorCRUDbp.Persona.infraestructure.controler;
 
-import com.example.refactorCRUDbp.application.PersonaService;
-import com.example.refactorCRUDbp.infraestructure.controler.input.PersonaInputDTO;
-import com.example.refactorCRUDbp.infraestructure.controler.output.PersonaOutputDTO;
+import com.example.refactorCRUDbp.Persona.application.PersonaService;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

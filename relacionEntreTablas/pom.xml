@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>relacionEntreTablas</artifactId>
+	<artifactId>refactorCRUDbp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>relacionEntreTablas</name>
-	<description>Ejercicio relacion entre tablas</description>
+	<name>refactorCRUDbp</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

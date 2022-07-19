@@ -1,7 +1,7 @@
-package com.example.refactorCRUDbp.infraestructure.controler.output;
+package com.example.refactorCRUDbp.Persona.infraestructure.controler.output;
 
 
-import com.example.refactorCRUDbp.domain.Persona;
+import com.example.refactorCRUDbp.Persona.domain.Persona;
 import lombok.Data;
 
 import java.util.Date;

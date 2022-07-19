@@ -1,5 +1,5 @@
-package com.example.refactorCRUDbp.domain;
-import com.example.refactorCRUDbp.infraestructure.controler.input.PersonaInputDTO;
+package com.example.refactorCRUDbp.Persona.domain;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;

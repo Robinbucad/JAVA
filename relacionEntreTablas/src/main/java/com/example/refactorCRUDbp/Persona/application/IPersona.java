@@ -1,6 +1,6 @@
-package com.example.refactorCRUDbp.application;
-import com.example.refactorCRUDbp.infraestructure.controler.input.PersonaInputDTO;
-import com.example.refactorCRUDbp.infraestructure.controler.output.PersonaOutputDTO;
+package com.example.refactorCRUDbp.Persona.application;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 
 import java.util.List;
 

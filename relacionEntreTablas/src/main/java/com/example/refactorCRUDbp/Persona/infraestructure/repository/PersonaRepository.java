@@ -1,7 +1,7 @@
-package com.example.refactorCRUDbp.infraestructure.repository;
+package com.example.refactorCRUDbp.Persona.infraestructure.repository;
 
-import com.example.refactorCRUDbp.domain.Persona;
-import com.example.refactorCRUDbp.infraestructure.controler.output.PersonaOutputDTO;
+import com.example.refactorCRUDbp.Persona.domain.Persona;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonaRepository extends JpaRepository<Persona, String> {

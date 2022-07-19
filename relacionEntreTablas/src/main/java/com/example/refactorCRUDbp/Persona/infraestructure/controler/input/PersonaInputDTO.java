@@ -1,4 +1,4 @@
-package com.example.refactorCRUDbp.infraestructure.controler.input;
+package com.example.refactorCRUDbp.Persona.infraestructure.controler.input;
 
 
 import lombok.Data;

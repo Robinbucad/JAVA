@@ -1,9 +1,9 @@
-package com.example.refactorCRUDbp.application;
+package com.example.refactorCRUDbp.Persona.application;
 
-import com.example.refactorCRUDbp.domain.Persona;
-import com.example.refactorCRUDbp.infraestructure.controler.input.PersonaInputDTO;
-import com.example.refactorCRUDbp.infraestructure.controler.output.PersonaOutputDTO;
-import com.example.refactorCRUDbp.infraestructure.repository.PersonaRepository;
+import com.example.refactorCRUDbp.Persona.domain.Persona;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
+import com.example.refactorCRUDbp.Persona.infraestructure.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
