@@ -1,13 +1,18 @@
-package com.example.refactorCRUDbp.Persona.infraestructure.controler.output;
-
+package com.example.refactorCRUDbp.Student.infraestructure.controller.output;
 
 import com.example.refactorCRUDbp.Persona.domain.Persona;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
+import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class PersonaOutputDTO {
+public class StudentPersonaOutputDTO {
+    private String idStudent;
+    private int numHoursWeek;
+    private String comments;
+    private String branch;
 
     private String idPersona;
     private String username;
@@ -22,7 +27,13 @@ public class PersonaOutputDTO {
     private String image_url;
     private Date termination_date;
 
-    public PersonaOutputDTO(Persona persona){
+
+    public StudentPersonaOutputDTO(PersonaOutputDTO persona, StudentOutputDTO studentInputDTO){
+        setIdStudent(studentInputDTO.getIdStudent());
+        setNumHoursWeek(studentInputDTO.getNumHoursWeek());
+        setComments(studentInputDTO.getComments());
+        setBranch(studentInputDTO.getBranch());
+
         setIdPersona(persona.getIdPersona());
         setUsername(persona.getUsername());
         setPassword(persona.getPassword());
@@ -37,8 +48,7 @@ public class PersonaOutputDTO {
         setTermination_date(persona.getTermination_date());
     }
 
-    public PersonaOutputDTO(){
+    public StudentPersonaOutputDTO(){
 
     }
-
 }

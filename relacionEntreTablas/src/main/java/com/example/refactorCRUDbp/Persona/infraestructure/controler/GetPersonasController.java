@@ -33,7 +33,7 @@ public class GetPersonasController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/id/{idPersona}")
-    public ResponseEntity<Object> getUserByID(@PathVariable int idPersona){
+    public ResponseEntity<Object> getUserByID(@PathVariable String idPersona){
         try {
             PersonaOutputDTO personaOutputDTO = personaService.getUserByID(idPersona);
             return new ResponseEntity<>(personaOutputDTO, HttpStatus.OK);

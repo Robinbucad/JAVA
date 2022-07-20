@@ -13,6 +13,7 @@ public class StudentOutputDTO {
     private String branch;
 
     public StudentOutputDTO(Student student){
+        setIdStudent(student.getIdStudent());
         setNumHoursWeek(student.getNumHoursWeek());
         setComments(student.getComments());
         setBranch(student.getBranch());

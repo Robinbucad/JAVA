@@ -38,7 +38,7 @@ public class PersonaService implements IPersona{
     }
 
 
-    public PersonaOutputDTO getUserByID(int idPersona)throws Exception{
+    public PersonaOutputDTO getUserByID(String idPersona)throws Exception{
         if (personaRepository.findByIdPersona(idPersona) == null){
             throw new Exception("404, usuario no existe");
         }else {
@@ -54,7 +54,7 @@ public class PersonaService implements IPersona{
         }
     }
 
-    public PersonaOutputDTO deleteUser(int idPersona)throws Exception{
+    public PersonaOutputDTO deleteUser(String idPersona)throws Exception{
 
         if (personaRepository.findByIdPersona(idPersona) == null){
             throw new Exception("404, user doesn't exist");
@@ -70,11 +70,11 @@ public class PersonaService implements IPersona{
         }
     }
 
-    public PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, int idPersona) throws Exception {
+    public PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, String idPersona) throws Exception {
         PersonaOutputDTO personaDTO = personaRepository.findByIdPersona(idPersona);
         List<Persona> personas =personaRepository.findAll();
         for (Persona e:personas){
-            if (e.getIdPersona()==idPersona){
+            if (e.getIdPersona().equals(idPersona)){
                 if (personaInputDTO.getUsername().length() < 6 || personaInputDTO.getUsername().length() > 10){
                     throw new Exception();
                 }else {

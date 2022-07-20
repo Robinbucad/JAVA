@@ -3,7 +3,6 @@ package com.example.refactorCRUDbp.Student.infraestructure.controller;
 
 import com.example.refactorCRUDbp.Student.application.StudentService;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
-import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,14 @@ public class PostStudentController {
     StudentService studentService;
 
     @PostMapping("/student")
-    public StudentOutputDTO createStudent(@RequestBody StudentInputDTO studentInputDTO){
-        return studentService.createStudent(studentInputDTO);
+    public ResponseEntity<Object> createStudent(@RequestBody StudentInputDTO studentInputDTO){
+        try {
+           studentService.createStudent(studentInputDTO);
+           return new ResponseEntity<>("Estudiante creado correctamente", HttpStatus.UNPROCESSABLE_ENTITY);
+        }catch (Exception e){
+            return new ResponseEntity<>("Error al crear estudiante", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
     }
 
 }

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonaRepository extends JpaRepository<Persona, String> {
 
-    PersonaOutputDTO findByIdPersona(int idPersona);
+    PersonaOutputDTO findByIdPersona(String idPersona);
     PersonaOutputDTO findByUsername(String username);
 }

@@ -14,7 +14,7 @@ public class PatchPersonasController {
     PersonaService personaService;
 
     @PatchMapping("/user/id/{idPersona}")
-    public ResponseEntity<String> updateUser(@RequestBody PersonaInputDTO personaInputDTO, @PathVariable int idPersona){
+    public ResponseEntity<String> updateUser(@RequestBody PersonaInputDTO personaInputDTO, @PathVariable String idPersona){
 
         try {
             personaService.updateUsername(personaInputDTO, idPersona);

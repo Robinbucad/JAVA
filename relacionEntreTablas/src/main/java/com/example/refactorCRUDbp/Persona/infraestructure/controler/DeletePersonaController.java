@@ -16,7 +16,7 @@ public class DeletePersonaController {
     PersonaService personaService;
 
     @DeleteMapping("/user/id/{idPersona}")
-    public ResponseEntity<Object> deleteUser(@PathVariable int idPersona){
+    public ResponseEntity<Object> deleteUser(@PathVariable String idPersona){
         try {
             personaService.deleteUser(idPersona);
             return new ResponseEntity<>("Borrada correctamente", HttpStatus.NO_CONTENT);

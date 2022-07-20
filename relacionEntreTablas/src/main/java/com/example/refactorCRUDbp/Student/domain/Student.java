@@ -1,5 +1,6 @@
 package com.example.refactorCRUDbp.Student.domain;
 
+import com.example.refactorCRUDbp.Persona.domain.Persona;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
 import com.sun.istack.NotNull;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "student")
 @Data
 public class Student {
 
@@ -19,13 +20,15 @@ public class Student {
             strategy = "com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "STU"),
-                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%04d")
+
             }
     )
     private String idStudent;
 
-    private String idPersona; //Relacion one to one con tabla persona
+    @OneToOne(fetch = FetchType.EAGER)
+    Persona persona; //Relacion one to one con tabla persona
+
+
     private int numHoursWeek;
     private String comments;
 
