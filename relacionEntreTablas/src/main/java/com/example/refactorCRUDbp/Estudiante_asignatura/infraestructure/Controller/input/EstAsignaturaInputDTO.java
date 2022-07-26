@@ -1,0 +1,19 @@
+package com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.input;
+
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+public class EstAsignaturaInputDTO {
+
+    private String asignatura;
+    private String comments;
+    private Date initialDate;
+    private Date finishDate;
+
+    public EstAsignaturaInputDTO(){
+
+    }
+
+}

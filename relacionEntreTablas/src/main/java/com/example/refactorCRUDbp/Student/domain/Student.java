@@ -25,7 +25,8 @@ public class Student {
     )
     private String idStudent;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idPersona")
     Persona persona; //Relacion one to one con tabla persona
 
 

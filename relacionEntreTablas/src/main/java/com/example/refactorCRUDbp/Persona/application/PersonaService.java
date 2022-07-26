@@ -62,7 +62,7 @@ public class PersonaService implements IPersona{
             List<Persona> personas = personaRepository.findAll();
             PersonaOutputDTO personaOutputDTO = personaRepository.findByIdPersona(idPersona);
             for (Persona e:personas){
-                if (e.getIdPersona() == idPersona){
+                if (e.getIdPersona().equals(idPersona)){
                     personaRepository.delete(e);
                 }
             }

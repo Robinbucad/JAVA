@@ -1,6 +1,7 @@
 package com.example.refactorCRUDbp.Persona.domain;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
+import com.example.refactorCRUDbp.Student.domain.Student;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,18 +23,31 @@ public class Persona {
 
             }
     )
+    @Column(name = "idPersona")
     private String idPersona;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "companyEmail")
     private String company_email;
+    @Column(name = "personalEmail")
     private String personal_email;
+    @Column(name = "city")
     private String city;
+    @Column(name = "active")
     private boolean active;
+    @Column(name = "createdDate")
     private Date created_date;
+    @Column(name = "imagenCaca")
     private String image_url;
+    @Column(name = "terminationDate")
     private Date termination_date;
+
 
     public Persona(PersonaInputDTO personaInputDTO){
         setIdPersona(personaInputDTO.getIdPersona());

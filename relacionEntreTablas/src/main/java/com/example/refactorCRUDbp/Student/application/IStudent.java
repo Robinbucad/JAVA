@@ -16,4 +16,6 @@ public interface IStudent {
    StudentOutputDTO getStudentById(String idStudent) throws Exception;
 
    StudentPersonaOutputDTO getStudentPersona(String idStudent) throws Exception;
+
+   StudentOutputDTO updateStudent(StudentInputDTO studentInputDTO, String idStudent);
 }

@@ -1,6 +1,7 @@
 package com.example.refactorCRUDbp.Student.infraestructure.controller.output;
 
 
+import com.example.refactorCRUDbp.Persona.domain.Persona;
 import com.example.refactorCRUDbp.Student.domain.Student;
 import lombok.Data;
 

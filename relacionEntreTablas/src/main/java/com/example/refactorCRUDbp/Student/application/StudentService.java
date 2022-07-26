@@ -51,18 +51,48 @@ public class StudentService implements IStudent{
 
     public StudentPersonaOutputDTO getStudentPersona(String idStudent) throws Exception{
 
-        if (studentRepository.getStudentPersonaByIdStudent(idStudent)!=null){
+        if (studentRepository.getStudentByIdStudent(idStudent)!=null){
             PersonaOutputDTO personaOutputDTO = personaRepository.findByIdPersona(idStudent);
             StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
-
+            System.out.println(personaOutputDTO);
+            System.out.println(studentOutputDTO);
             StudentPersonaOutputDTO studentPersonaOutputDTO = new StudentPersonaOutputDTO(personaOutputDTO, studentOutputDTO);
             return studentPersonaOutputDTO;
         }else {
             throw new Exception();
         }
+    }
 
+    public StudentOutputDTO deleteStudentById(String idStudent) throws Exception{
+
+
+        if (studentRepository.getStudentByIdStudent(idStudent) == null){
+            throw new Exception();
+        }else {
+            List<Student> students = studentRepository.findAll();
+            StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
+
+            for (Student s:students){
+                if (s.getIdStudent().equals(idStudent)){
+                    studentRepository.delete(s);
+                }
+            }
+            return studentOutputDTO;
+        }
 
     }
 
+    public StudentOutputDTO updateStudent(StudentInputDTO studentInputDTO, String idStudent){
+        StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
+        List<Student> students = studentRepository.findAll();
+        for (Student s:students){
+            if (s.getIdStudent().equals(idStudent)){
+                studentOutputDTO.setBranch(studentInputDTO.getBranch());
+                s.setBranch(studentInputDTO.getBranch());
+                studentRepository.save(s);
+            }
+        }
+        return studentOutputDTO;
+    }
 
 }

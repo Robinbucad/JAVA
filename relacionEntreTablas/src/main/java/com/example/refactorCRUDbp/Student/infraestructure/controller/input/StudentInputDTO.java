@@ -10,7 +10,7 @@ public class StudentInputDTO {
     private String comments;
     private String branch;
     private String idStudent;
-    private Persona persona;
+    private Persona idPersona;
     public StudentInputDTO(){
 
     }
