@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,7 +18,7 @@ public class PatchStudentController {
     StudentService studentService;
 
     @PatchMapping("/student/{idStudent}")
-    public ResponseEntity<Object> updateStudent(StudentInputDTO studentInputDTO,@PathVariable String idStudent){
+    public ResponseEntity<Object> updateStudent(@RequestBody StudentInputDTO studentInputDTO, @PathVariable String idStudent){
         try {
 
             studentService.updateStudent(studentInputDTO,idStudent);

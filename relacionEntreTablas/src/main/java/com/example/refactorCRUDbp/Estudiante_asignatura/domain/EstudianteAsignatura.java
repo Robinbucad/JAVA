@@ -35,6 +35,7 @@ public class EstudianteAsignatura {
         setComments(estAsignaturaInputDTO.getComments());
         setInitialDate(estAsignaturaInputDTO.getInitialDate());
         setFinishDate(estAsignaturaInputDTO.getFinishDate());
+        setIdStudent(estAsignaturaInputDTO.getIdStudent());
     }
 
     public EstudianteAsignatura(){

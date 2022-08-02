@@ -1,6 +1,5 @@
 package com.example.refactorCRUDbp.Student.application;
 
-import com.example.refactorCRUDbp.Persona.domain.Persona;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import com.example.refactorCRUDbp.Persona.infraestructure.repository.PersonaRepository;
 import com.example.refactorCRUDbp.Student.domain.Student;
@@ -54,8 +53,6 @@ public class StudentService implements IStudent{
         if (studentRepository.getStudentByIdStudent(idStudent)!=null){
             PersonaOutputDTO personaOutputDTO = personaRepository.findByIdPersona(idStudent);
             StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
-            System.out.println(personaOutputDTO);
-            System.out.println(studentOutputDTO);
             StudentPersonaOutputDTO studentPersonaOutputDTO = new StudentPersonaOutputDTO(personaOutputDTO, studentOutputDTO);
             return studentPersonaOutputDTO;
         }else {
@@ -64,8 +61,6 @@ public class StudentService implements IStudent{
     }
 
     public StudentOutputDTO deleteStudentById(String idStudent) throws Exception{
-
-
         if (studentRepository.getStudentByIdStudent(idStudent) == null){
             throw new Exception();
         }else {
@@ -79,7 +74,6 @@ public class StudentService implements IStudent{
             }
             return studentOutputDTO;
         }
-
     }
 
     public StudentOutputDTO updateStudent(StudentInputDTO studentInputDTO, String idStudent){
@@ -87,8 +81,18 @@ public class StudentService implements IStudent{
         List<Student> students = studentRepository.findAll();
         for (Student s:students){
             if (s.getIdStudent().equals(idStudent)){
-                studentOutputDTO.setBranch(studentInputDTO.getBranch());
-                s.setBranch(studentInputDTO.getBranch());
+                if (studentInputDTO.getBranch() != null){
+                    studentOutputDTO.setBranch(studentInputDTO.getBranch());
+                    s.setBranch(studentInputDTO.getBranch());
+                }
+                if (studentInputDTO.getComments() != null){
+                    studentOutputDTO.setComments(studentInputDTO.getComments());
+                    s.setComments(studentInputDTO.getComments());
+                }
+                if (studentInputDTO.getNumHoursWeek() != 0){
+                    studentOutputDTO.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
+                    s.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
+                }
                 studentRepository.save(s);
             }
         }

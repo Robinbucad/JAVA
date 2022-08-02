@@ -13,9 +13,11 @@ public class EstAsignaturaOutputDTO {
     private String comments;
     private Date initialDate;
     private Date finishDate;
+    private String idStudent;
 
     public EstAsignaturaOutputDTO(EstudianteAsignatura estudianteAsignatura){
 
+        setIdStudent(estudianteAsignatura.getIdStudent());
         setIdAsignatura(estudianteAsignatura.getIdAsignatura());
         setAsignatura(estudianteAsignatura.getAsignatura());
         setComments(estudianteAsignatura.getComments());

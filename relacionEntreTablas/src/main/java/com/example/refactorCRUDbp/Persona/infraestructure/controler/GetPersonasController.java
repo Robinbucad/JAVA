@@ -3,13 +3,11 @@ package com.example.refactorCRUDbp.Persona.infraestructure.controler;
 
 import com.example.refactorCRUDbp.Persona.application.PersonaService;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
+import com.example.refactorCRUDbp.Student.application.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,9 @@ public class GetPersonasController {
 
     @Autowired
     PersonaService personaService;
+
+    @Autowired
+    StudentService studentService;
 
     @GetMapping("/pong")
     public String getPing(){
@@ -33,21 +34,38 @@ public class GetPersonasController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/id/{idPersona}")
-    public ResponseEntity<Object> getUserByID(@PathVariable String idPersona){
-        try {
-            PersonaOutputDTO personaOutputDTO = personaService.getUserByID(idPersona);
-            return new ResponseEntity<>(personaOutputDTO, HttpStatus.OK);
+    public ResponseEntity<Object> getUserByID(@PathVariable String idPersona, @RequestParam(defaultValue = "simple") String type){
+        try{
+            if (type.equals("simple")){
+                PersonaOutputDTO personaOutputDTO = personaService.getUserByID(idPersona);
+                return new ResponseEntity<>(personaOutputDTO,HttpStatus.OK);
+            }
+            else if (type.equals("full")){
+                return new ResponseEntity<>(studentService.getStudentPersona(idPersona), HttpStatus.OK);
+            }
+            else {
+                return null;
+            }
         }catch (Exception e){
-            return new ResponseEntity<>("No se ha encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
         }
+
 
     }
 
     @GetMapping("/user/username/{username}")
-    public ResponseEntity<Object> getPersonaByUsername(@PathVariable String username){
+    public ResponseEntity<Object> getPersonaByUsername(@PathVariable String username, @RequestParam(defaultValue = "simple") String type){
         try{
-            PersonaOutputDTO personaOutputDTO = personaService.findByUsername(username);
-            return new ResponseEntity<>(personaOutputDTO,HttpStatus.OK);
+            if (type.equals("simple")){
+                PersonaOutputDTO personaOutputDTO = personaService.findByUsername(username);
+                return new ResponseEntity<>(personaOutputDTO,HttpStatus.OK);
+            }
+            else if (type.equals("full")){
+                return new ResponseEntity<>(studentService.getStudentPersona(username), HttpStatus.OK);
+            }
+            else {
+                return null;
+            }
         }catch (Exception e){
             return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
         }
@@ -55,3 +73,4 @@ public class GetPersonasController {
     }
 
 }
+

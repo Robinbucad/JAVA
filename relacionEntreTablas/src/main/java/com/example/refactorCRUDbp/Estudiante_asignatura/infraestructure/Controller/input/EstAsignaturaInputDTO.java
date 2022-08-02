@@ -7,10 +7,12 @@ import java.util.Date;
 @Data
 public class EstAsignaturaInputDTO {
 
+
     private String asignatura;
     private String comments;
     private Date initialDate;
     private Date finishDate;
+    private String idStudent;
 
     public EstAsignaturaInputDTO(){
 
