@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonaRepository extends JpaRepository<PersonaEntity, String> {
-    PersonaOutputDTO findByUsuario(String usuario);
+    PersonaOutputDTO findByUsername(String username);
     PersonaOutputDTO findByIdPersona(int idPersona);
 }

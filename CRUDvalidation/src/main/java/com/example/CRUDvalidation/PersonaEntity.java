@@ -12,46 +12,30 @@ public class PersonaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_persona")
     private int idPersona;
 
-    @Column(name = "usuario")
-    private String usuario;
+    private String username;
 
-    @Column(name = "nombre")
     private String name;
 
-    @Column(name = "contraseña")
     private String password;
 
-    @Column(name = "apellidos")
     private String surname;
 
-    @Column(name = "EmailTrabajo")
     private String company_email;
 
-    @Column(name = "EmailPersonal")
     private String personal_email;
 
-    @Column(name = "Ciudad")
     private String city;
 
-    @Column(name = "Activo")
     private boolean active;
 
-    @Column(name = "FechaCreacion")
-    private Date created_date;
+    private String url_image;
 
-    @Column(name = "ImagenUrl")
-    private String imagen_url;
-
-    @Column(name = "FechaFin")
-    private Date termination_date;
 
     public PersonaEntity(PersonaInputDTO persona){
 
-        setIdPersona(persona.getIdPersona());
-        setUsuario(persona.getUsuario());
+        setUsername(persona.getUsername());
         setName(persona.getName());
         setPassword(persona.getPassword());
         setSurname(persona.getSurname());
@@ -59,10 +43,7 @@ public class PersonaEntity {
         setPersonal_email(persona.getCompany_email());
         setCity(persona.getCity());
         setActive(persona.isActive());
-        setCreated_date(persona.getCreated_date());
-        setImagen_url(persona.getImagen_url());
-        setTermination_date(persona.getTermination_date());
-
+        setUrl_image(persona.getUrl_image());
     }
 
     public PersonaEntity(){

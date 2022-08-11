@@ -25,7 +25,7 @@ public class PersonaOutputDTO {
 
     public PersonaOutputDTO(PersonaEntity persona){
         setIdPersona(persona.getIdPersona());
-        setUsuario(persona.getUsuario());
+        setUsuario(persona.getUsername());
         setName(persona.getName());
         setPassword(persona.getPassword());
         setSurname(persona.getSurname());
@@ -33,9 +33,7 @@ public class PersonaOutputDTO {
         setPersonal_email(persona.getCompany_email());
         setCity(persona.getCity());
         setActive(persona.isActive());
-        setCreated_date(persona.getCreated_date());
-        setImagen_url(persona.getImagen_url());
-        setTermination_date(persona.getTermination_date());
+        setImagen_url(persona.getUrl_image());
 
     }
 

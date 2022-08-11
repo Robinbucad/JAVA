@@ -17,7 +17,7 @@ public class PersonaService implements IPersona{
     }
 
     public PersonaOutputDTO addUser(PersonaInputDTO personaInputDTO) throws Exception{
-        if (personaInputDTO.getUsuario().length() < 6 || personaInputDTO.getUsuario().length() > 10){
+        if (personaInputDTO.getUsername().length() < 6 || personaInputDTO.getUsername().length() > 10){
             throw new Exception("El nombre de usuario debe tener entre 6 y 10 caracteres");
         }else {
             PersonaEntity personaEntity = new PersonaEntity(personaInputDTO);
@@ -28,10 +28,10 @@ public class PersonaService implements IPersona{
     }
 
     public PersonaOutputDTO findByUsername(String usuario) throws Exception{
-        if (personaRepository.findByUsuario(usuario) == null){
+        if (personaRepository.findByUsername(usuario) == null){
             throw new Exception("404, usuario no existe");
         }else {
-            return personaRepository.findByUsuario(usuario);
+            return personaRepository.findByUsername(usuario);
         }
     }
 
