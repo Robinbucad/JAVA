@@ -11,7 +11,7 @@ import java.util.Date;
 public class PersonaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idPersona;
 
     private String username;
@@ -32,18 +32,24 @@ public class PersonaEntity {
 
     private String url_image;
 
+    private Date creation_date;
+
+    private Date termination_date;
+
 
     public PersonaEntity(PersonaInputDTO persona){
 
-        setUsername(persona.getUsername());
-        setName(persona.getName());
-        setPassword(persona.getPassword());
-        setSurname(persona.getSurname());
-        setCompany_email(persona.getCompany_email());
-        setPersonal_email(persona.getCompany_email());
-        setCity(persona.getCity());
-        setActive(persona.isActive());
-        setUrl_image(persona.getUrl_image());
+        setUsername(persona.username());
+        setName(persona.name());
+        setPassword(persona.password());
+        setSurname(persona.surname());
+        setCompany_email(persona.company_email());
+        setPersonal_email(persona.personal_email());
+        setCity(persona.city());
+        setActive(persona.active());
+        setUrl_image(persona.url_image());
+        setCreation_date(persona.creation_date());
+        setTermination_date(persona.termination_date());
     }
 
     public PersonaEntity(){

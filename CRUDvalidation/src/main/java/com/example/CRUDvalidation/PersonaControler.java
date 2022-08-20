@@ -2,9 +2,12 @@ package com.example.CRUDvalidation;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PersonaControler {
@@ -18,11 +21,20 @@ public class PersonaControler {
    }
 
    @GetMapping("/users")
-    public List<PersonaEntity> findAll(){
-       return personaService.findAll();
+    public List<PersonaOutputDTO> getAllPersonas(@RequestParam int page){
+       return personaService.getAllPersonas(page);
    }
 
-   @PostMapping("/users")
+    @GetMapping("/criteria")
+    public List<PersonaOutputDTO> getPersonWithCriteria(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> creation_date,
+            @RequestParam(defaultValue = "mayor") String condition
+    ){
+        return personaService.getPersonasCriteria(creation_date,condition);
+    }
+
+
+    @PostMapping("/users")
     public PersonaOutputDTO addUser(@RequestBody PersonaInputDTO personaInputDTO)throws Exception{
        return personaService.addUser(personaInputDTO);
    }
