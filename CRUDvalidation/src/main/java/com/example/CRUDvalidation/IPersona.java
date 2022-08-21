@@ -14,4 +14,6 @@ public interface IPersona {
     PersonaOutputDTO findByUsername(String usuario) throws Exception;
 
     PersonaOutputDTO findByIdPersona(int idPersona) throws Exception;
+
+    String deletePersona(int idPersona);
 }

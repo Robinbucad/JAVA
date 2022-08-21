@@ -3,6 +3,7 @@ package com.example.CRUDvalidation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -49,4 +50,8 @@ public class PersonaControler {
        return personaService.findByIdPersona(idPersona);
     }
 
+    @DeleteMapping("/users/id/{idPersona}")
+    public String deletePersona(@PathVariable int idPersona){
+       return personaService.deletePersona(idPersona);
+    }
 }

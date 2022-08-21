@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Repository
-public interface PersonaRepository extends JpaRepository<PersonaEntity, String> {
+public interface PersonaRepository extends JpaRepository<PersonaEntity, Integer> {
 
     PersonaOutputDTO findByUsername(String username);
     PersonaOutputDTO findByIdPersona(int idPersona);

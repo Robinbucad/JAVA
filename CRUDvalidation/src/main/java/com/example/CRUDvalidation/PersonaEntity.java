@@ -52,6 +52,19 @@ public class PersonaEntity {
         setTermination_date(persona.termination_date());
     }
 
+    public void updatePersona(PersonaInputDTO persona){
+        setUsername(persona.username());
+        setName(persona.name());
+        setPassword(persona.password());
+        setSurname(persona.surname());
+        setCompany_email(persona.company_email());
+        setPersonal_email(persona.personal_email());
+        setCity(persona.city());
+        setActive(persona.active());
+        setUrl_image(persona.url_image());
+        setCreation_date(persona.creation_date());
+        setTermination_date(persona.termination_date());
+    }
     public PersonaEntity(){
 
     }

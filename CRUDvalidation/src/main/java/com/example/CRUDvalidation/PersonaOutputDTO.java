@@ -3,6 +3,7 @@ package com.example.CRUDvalidation;
 import java.util.Date;
 
 public record PersonaOutputDTO(
+        int idPersona,
         String usuario,
         String name,
         String password,
@@ -18,6 +19,7 @@ public record PersonaOutputDTO(
 
     public PersonaOutputDTO(PersonaEntity persona){
         this(
+                persona.getIdPersona(),
                 persona.getUsername(),
                 persona.getName(),
                 persona.getPassword(),
