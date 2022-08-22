@@ -1,6 +1,7 @@
 package com.example.refactorCRUDbp.Profesor.domain;
 
 
+import com.example.refactorCRUDbp.Persona.domain.Persona;
 import com.example.refactorCRUDbp.Profesor.infraestructure.controller.input.ProfesorInputDTO;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
 import com.sun.istack.NotNull;
@@ -25,17 +26,19 @@ public class Profesor {
             }
     )
     private String idProfesor;
-
-    private String idPersona; // Relacion one to one tabla persona
     private String comments;
 
-    @NotNull
     private String branch; // Materia que imparte
 
-    public Profesor(ProfesorInputDTO profesorInputDTO){
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPersona")
+    Persona persona;
+
+    public Profesor(ProfesorInputDTO profesorInputDTO, Persona persona){
 
         setComments(profesorInputDTO.getComments());
         setBranch(profesorInputDTO.getBranch());
+        setPersona(persona);
 
     }
 

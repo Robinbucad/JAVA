@@ -1,6 +1,7 @@
 package com.example.refactorCRUDbp.Student.infraestructure.controller;
 
 
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
 import com.example.refactorCRUDbp.Student.application.StudentService;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

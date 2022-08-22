@@ -2,11 +2,14 @@ package com.example.refactorCRUDbp.Estudiante_asignatura.domain;
 
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.input.EstAsignaturaInputDTO;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
+import com.example.refactorCRUDbp.Student.domain.Student;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,11 +27,13 @@ public class EstudianteAsignatura {
             }
     )
     private String idAsignatura;
-    private String idStudent;
     private String asignatura;
     private String comments;
     private Date initialDate;
     private Date finishDate;
+    private String idStudent;
+
+
 
     public EstudianteAsignatura(EstAsignaturaInputDTO estAsignaturaInputDTO){
         setAsignatura(estAsignaturaInputDTO.getAsignatura());

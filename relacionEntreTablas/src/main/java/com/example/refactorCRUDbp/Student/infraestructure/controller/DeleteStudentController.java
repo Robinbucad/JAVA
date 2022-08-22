@@ -2,7 +2,6 @@ package com.example.refactorCRUDbp.Student.infraestructure.controller;
 
 
 import com.example.refactorCRUDbp.Student.application.StudentService;
-import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

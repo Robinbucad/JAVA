@@ -1,7 +1,13 @@
 package com.example.refactorCRUDbp.Student.application;
 
+import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
+import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.repository.EstAsignaturaRepository;
+import com.example.refactorCRUDbp.Persona.domain.Persona;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import com.example.refactorCRUDbp.Persona.infraestructure.repository.PersonaRepository;
+import com.example.refactorCRUDbp.Profesor.domain.Profesor;
+import com.example.refactorCRUDbp.Profesor.infraestructure.repository.ProfesorRepository;
 import com.example.refactorCRUDbp.Student.domain.Student;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
@@ -12,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentService implements IStudent{
@@ -22,6 +27,12 @@ public class StudentService implements IStudent{
 
     @Autowired
     PersonaRepository personaRepository;
+
+    @Autowired
+    ProfesorRepository profesorRepository;
+
+    @Autowired
+    EstAsignaturaRepository estAsignaturaRepository;
 
     public List<StudentOutputDTO> getALlStudents(){
         List<Student> students = studentRepository.findAll();
@@ -33,16 +44,25 @@ public class StudentService implements IStudent{
         return studentOutputDTO;
     }
 
-    public StudentOutputDTO createStudent(StudentInputDTO studentInputDTO){
-        Student student = new Student(studentInputDTO);
-        StudentOutputDTO studentOutputDTO = new StudentOutputDTO(student);
-        studentRepository.save(student);
-        return studentOutputDTO;
+    public StudentOutputDTO createStudent(StudentInputDTO studentInputDTO) throws Exception{
+        Profesor profesor = profesorRepository.findById(studentInputDTO.getIdPersona()).orElse(null);
+        Persona persona = personaRepository.findByIdPersona(studentInputDTO.getIdPersona());
+        Student student = new Student(studentInputDTO,persona);
+
+        if (profesor == null){
+            StudentOutputDTO studentOutputDTO = new StudentOutputDTO(student);
+            studentRepository.save(student);
+            return studentOutputDTO;
+        }else {
+            throw new Exception();
+        }
+
+
     }
 
     public StudentOutputDTO getStudentById(String idStudent)throws Exception{
         if (studentRepository.getStudentByIdStudent(idStudent) != null){
-            return studentRepository.getStudentByIdStudent(idStudent);
+            return new StudentOutputDTO(studentRepository.getStudentByIdStudent(idStudent));
         }else {
             throw new  Exception();
         }
@@ -51,9 +71,11 @@ public class StudentService implements IStudent{
     public StudentPersonaOutputDTO getStudentPersona(String idStudent) throws Exception{
 
         if (studentRepository.getStudentByIdStudent(idStudent)!=null){
-            PersonaOutputDTO personaOutputDTO = personaRepository.findByIdPersona(idStudent);
-            StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
-            StudentPersonaOutputDTO studentPersonaOutputDTO = new StudentPersonaOutputDTO(personaOutputDTO, studentOutputDTO);
+            Persona persona = personaRepository.findByIdPersona(idStudent);
+            Student student = studentRepository.getStudentByIdStudent(idStudent);
+            List<EstudianteAsignatura> estudianteAsignaturas = estAsignaturaRepository.findByIdStudent(idStudent);
+
+            StudentPersonaOutputDTO studentPersonaOutputDTO = new StudentPersonaOutputDTO(new PersonaOutputDTO(persona), new StudentOutputDTO(student), estudianteAsignaturas);
             return studentPersonaOutputDTO;
         }else {
             throw new Exception();
@@ -65,38 +87,38 @@ public class StudentService implements IStudent{
             throw new Exception();
         }else {
             List<Student> students = studentRepository.findAll();
-            StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
+            Student student = studentRepository.getStudentByIdStudent(idStudent);
 
             for (Student s:students){
                 if (s.getIdStudent().equals(idStudent)){
                     studentRepository.delete(s);
                 }
             }
-            return studentOutputDTO;
+            return new StudentOutputDTO(student);
         }
     }
 
     public StudentOutputDTO updateStudent(StudentInputDTO studentInputDTO, String idStudent){
-        StudentOutputDTO studentOutputDTO = studentRepository.getStudentByIdStudent(idStudent);
+        Student student = studentRepository.getStudentByIdStudent(idStudent);
         List<Student> students = studentRepository.findAll();
         for (Student s:students){
             if (s.getIdStudent().equals(idStudent)){
                 if (studentInputDTO.getBranch() != null){
-                    studentOutputDTO.setBranch(studentInputDTO.getBranch());
+                    student.setBranch(studentInputDTO.getBranch());
                     s.setBranch(studentInputDTO.getBranch());
                 }
                 if (studentInputDTO.getComments() != null){
-                    studentOutputDTO.setComments(studentInputDTO.getComments());
+                    student.setComments(studentInputDTO.getComments());
                     s.setComments(studentInputDTO.getComments());
                 }
                 if (studentInputDTO.getNumHoursWeek() != 0){
-                    studentOutputDTO.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
+                    student.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
                     s.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
                 }
                 studentRepository.save(s);
             }
         }
-        return studentOutputDTO;
+        return new StudentOutputDTO(student);
     }
 
 }

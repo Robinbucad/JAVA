@@ -1,11 +1,13 @@
 package com.example.refactorCRUDbp.Student.infraestructure.controller.output;
 
-import com.example.refactorCRUDbp.Persona.domain.Persona;
+import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
+import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.output.EstAsignaturaOutputDTO;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
-import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class StudentPersonaOutputDTO {
@@ -27,8 +29,9 @@ public class StudentPersonaOutputDTO {
     private String image_url;
     private Date termination_date;
 
+    private List<EstudianteAsignatura> estudianteAsignaturaList = new ArrayList<>();
 
-    public StudentPersonaOutputDTO(PersonaOutputDTO persona, StudentOutputDTO studentInputDTO){
+    public StudentPersonaOutputDTO(PersonaOutputDTO persona, StudentOutputDTO studentInputDTO, List<EstudianteAsignatura> estAsignaturaOutputDTO){
         setIdStudent(studentInputDTO.getIdStudent());
         setNumHoursWeek(studentInputDTO.getNumHoursWeek());
         setComments(studentInputDTO.getComments());
@@ -46,6 +49,7 @@ public class StudentPersonaOutputDTO {
         setCreated_date(persona.getCreated_date());
         setImage_url(persona.getImage_url());
         setTermination_date(persona.getTermination_date());
+        setEstudianteAsignaturaList(estAsignaturaOutputDTO);
     }
 
     public StudentPersonaOutputDTO(){

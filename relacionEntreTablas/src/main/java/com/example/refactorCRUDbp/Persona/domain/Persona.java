@@ -1,11 +1,14 @@
 package com.example.refactorCRUDbp.Persona.domain;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
+import com.example.refactorCRUDbp.Profesor.domain.Profesor;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
 import com.example.refactorCRUDbp.Student.domain.Student;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -23,8 +26,8 @@ public class Persona {
 
             }
     )
-    @Column(name = "idPersona")
     private String idPersona;
+
     @Column(name = "username")
     private String username;
     @Column(name = "password")
@@ -47,6 +50,9 @@ public class Persona {
     private String image_url;
     @Column(name = "terminationDate")
     private Date termination_date;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Roles> roles =new ArrayList<>();
 
 
     public Persona(PersonaInputDTO personaInputDTO){

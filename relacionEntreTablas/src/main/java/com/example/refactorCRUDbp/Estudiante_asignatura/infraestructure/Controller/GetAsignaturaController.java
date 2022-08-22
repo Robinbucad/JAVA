@@ -3,8 +3,6 @@ package com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Control
 
 import com.example.refactorCRUDbp.Estudiante_asignatura.application.EstAsignaturaService;
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.output.EstAsignaturaOutputDTO;
-import com.example.refactorCRUDbp.Student.application.StudentService;
-import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +33,7 @@ public class GetAsignaturaController {
     @GetMapping("/estAsignatura/{idAsignatura}")
     ResponseEntity<Object> getEstAsignaturaById(@PathVariable String idAsignatura){
         try {
-            List<EstAsignaturaOutputDTO> estAsignaturaOutputDTO= estAsignaturaService.getEstAsignaturaById(idAsignatura);
+            EstAsignaturaOutputDTO estAsignaturaOutputDTO = estAsignaturaService.getEstAsignaturaById(idAsignatura);
             return new ResponseEntity<>(estAsignaturaOutputDTO, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>("No existe la asignatura", HttpStatus.NOT_FOUND);

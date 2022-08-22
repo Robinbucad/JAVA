@@ -2,6 +2,7 @@ package com.example.refactorCRUDbp.Persona.infraestructure.controler;
 
 
 import com.example.refactorCRUDbp.Persona.application.PersonaService;
+import com.example.refactorCRUDbp.Persona.domain.Roles;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import com.example.refactorCRUDbp.Student.application.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,9 @@ public class GetPersonasController {
 
     }
 
+    @GetMapping("/roles")
+    public List<Roles> getRoles(){
+        return personaService.getRoles();
+    }
 }
 

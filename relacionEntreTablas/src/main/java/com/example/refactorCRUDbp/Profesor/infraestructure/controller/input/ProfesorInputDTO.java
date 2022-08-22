@@ -9,6 +9,9 @@ public class ProfesorInputDTO {
 
     private String comments;
     private String branch;
-    private Persona persona;
+    private String idPersona;
 
+    public ProfesorInputDTO() {
+
+    }
 }

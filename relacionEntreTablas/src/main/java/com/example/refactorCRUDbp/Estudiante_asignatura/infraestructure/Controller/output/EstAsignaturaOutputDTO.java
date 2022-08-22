@@ -17,12 +17,12 @@ public class EstAsignaturaOutputDTO {
 
     public EstAsignaturaOutputDTO(EstudianteAsignatura estudianteAsignatura){
 
-        setIdStudent(estudianteAsignatura.getIdStudent());
         setIdAsignatura(estudianteAsignatura.getIdAsignatura());
         setAsignatura(estudianteAsignatura.getAsignatura());
         setComments(estudianteAsignatura.getComments());
         setInitialDate(estudianteAsignatura.getInitialDate());
         setFinishDate(estudianteAsignatura.getFinishDate());
+        setIdStudent(estudianteAsignatura.getIdStudent());
 
     }
     public EstAsignaturaOutputDTO(){

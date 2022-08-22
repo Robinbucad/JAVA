@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface EstAsignaturaRepository extends JpaRepository<EstudianteAsignatura,String> {
 
-    EstAsignaturaOutputDTO findByIdAsignatura(String idAsignatura);
-    
+    EstudianteAsignatura findByIdAsignatura(String idAsignatura);
+
+    List<EstudianteAsignatura> findByIdStudent(String idStudent);
 }

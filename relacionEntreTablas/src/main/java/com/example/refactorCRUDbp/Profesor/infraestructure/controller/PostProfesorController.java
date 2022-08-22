@@ -3,7 +3,6 @@ package com.example.refactorCRUDbp.Profesor.infraestructure.controller;
 
 import com.example.refactorCRUDbp.Profesor.application.ProfesorService;
 import com.example.refactorCRUDbp.Profesor.infraestructure.controller.input.ProfesorInputDTO;
-import com.example.refactorCRUDbp.Profesor.infraestructure.controller.output.ProfesorOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

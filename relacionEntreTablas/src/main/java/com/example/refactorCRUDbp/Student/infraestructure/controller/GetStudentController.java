@@ -2,9 +2,7 @@ package com.example.refactorCRUDbp.Student.infraestructure.controller;
 
 
 import com.example.refactorCRUDbp.Student.application.StudentService;
-import com.example.refactorCRUDbp.Student.domain.Student;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
-import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentPersonaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class GetStudentController {
