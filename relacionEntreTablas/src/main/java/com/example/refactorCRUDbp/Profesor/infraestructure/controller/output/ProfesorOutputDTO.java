@@ -1,7 +1,11 @@
 package com.example.refactorCRUDbp.Profesor.infraestructure.controller.output;
 
+import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
 import com.example.refactorCRUDbp.Profesor.domain.Profesor;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data

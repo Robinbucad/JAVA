@@ -12,10 +12,12 @@ public interface IStudent {
 
    List<StudentOutputDTO> getALlStudents();
 
-   StudentOutputDTO createStudent(StudentInputDTO studentInputDTO) throws Exception;
-   StudentOutputDTO getStudentById(String idStudent) throws Exception;
+   StudentOutputDTO createStudent(StudentInputDTO studentInputDTO);
+   StudentOutputDTO getStudentById(String idStudent);
 
-   StudentPersonaOutputDTO getStudentPersona(String idStudent) throws Exception;
+   StudentPersonaOutputDTO getStudentPersona(String idStudent);
 
    StudentOutputDTO updateStudent(StudentInputDTO studentInputDTO, String idStudent);
+
+   String deleteStudentById(String idStudent);
 }

@@ -16,13 +16,8 @@ public class DeleteStudentController {
     StudentService studentService;
 
     @DeleteMapping("/student/{idStudent}")
-    public ResponseEntity<Object> deleteStudentById(@PathVariable String idStudent) {
-        try {
-            studentService.deleteStudentById(idStudent);
-            return new ResponseEntity<>("Borrada correctamente", HttpStatus.NO_CONTENT);
-        }catch (Exception e){
-            return new ResponseEntity<>("Estudiante no existe", HttpStatus.NOT_FOUND);
-        }
+    public String deleteStudentById(@PathVariable String idStudent) {
+            return studentService.deleteStudentById(idStudent);
     }
 
 }

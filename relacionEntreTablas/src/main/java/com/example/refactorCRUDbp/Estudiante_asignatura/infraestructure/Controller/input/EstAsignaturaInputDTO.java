@@ -2,6 +2,7 @@ package com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Control
 
 import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
 import lombok.Data;
+import org.aspectj.apache.bcel.classfile.Module;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class EstAsignaturaInputDTO  {
     private Date initialDate;
     private Date finishDate;
     private String idStudent;
+    private String idProfesor;
 
     public EstAsignaturaInputDTO(){}
 

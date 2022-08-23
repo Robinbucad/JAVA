@@ -11,4 +11,6 @@ public interface EstAsignaturaRepository extends JpaRepository<EstudianteAsignat
     EstudianteAsignatura findByIdAsignatura(String idAsignatura);
 
     List<EstudianteAsignatura> findByIdStudent(String idStudent);
+
+    List<EstudianteAsignatura> findByIdProfesor(String idProfesor);
 }

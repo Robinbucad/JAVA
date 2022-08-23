@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfesorRepository extends JpaRepository<Profesor, String> {
 
-    ProfesorOutputDTO getByIdProfesor(String idProfesor);
+    Profesor getByIdProfesor(String idProfesor);
 
 }

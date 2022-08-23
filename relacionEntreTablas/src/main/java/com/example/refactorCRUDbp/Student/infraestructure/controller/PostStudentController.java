@@ -18,13 +18,9 @@ public class PostStudentController {
     StudentService studentService;
 
     @PostMapping("/student")
-    public ResponseEntity<Object> createStudent(@RequestBody StudentInputDTO studentInputDTO){
-        try {
-           studentService.createStudent(studentInputDTO);
-           return new ResponseEntity<>("Estudiante creado correctamente", HttpStatus.UNPROCESSABLE_ENTITY);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error al crear estudiante", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
+    public Object createStudent(@RequestBody StudentInputDTO studentInputDTO){
+
+        return studentService.createStudent(studentInputDTO);
 
     }
 

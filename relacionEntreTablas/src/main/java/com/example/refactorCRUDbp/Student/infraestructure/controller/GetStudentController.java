@@ -25,20 +25,16 @@ public class GetStudentController {
     }
 
     @GetMapping("/student/{id}")
-    public ResponseEntity<Object> getStudentById(@PathVariable String id, @RequestParam(defaultValue = "simple") String type) {
-        try {
+    public Object getStudentById(@PathVariable String id, @RequestParam(defaultValue = "simple") String type) {
+
             if (type.equals("simple")){
-                return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
+                return studentService.getStudentById(id);
             }
             else if (type.equals("full")){
-                return new ResponseEntity<>(studentService.getStudentPersona(id), HttpStatus.OK);
+                return studentService.getStudentPersona(id);
             }else {
                 return null;
             }
-        }
-        catch (Exception e){
-            return new ResponseEntity<>("No existe el estudiante", HttpStatus.NOT_FOUND);
-        }
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.refactorCRUDbp.Profesor.domain;
 
 
+import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
 import com.example.refactorCRUDbp.Persona.domain.Persona;
 import com.example.refactorCRUDbp.Profesor.infraestructure.controller.input.ProfesorInputDTO;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
@@ -9,6 +10,8 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,12 +37,14 @@ public class Profesor {
     @JoinColumn(name = "idPersona")
     Persona persona;
 
-    public Profesor(ProfesorInputDTO profesorInputDTO, Persona persona){
+    @OneToMany
+    List<EstudianteAsignatura> asignaturasImpartir = new ArrayList<>();
 
+    public Profesor(ProfesorInputDTO profesorInputDTO, Persona persona){
         setComments(profesorInputDTO.getComments());
         setBranch(profesorInputDTO.getBranch());
         setPersona(persona);
-
+        setAsignaturasImpartir(profesorInputDTO.getEstudianteAsignaturas());
     }
 
     public Profesor(){

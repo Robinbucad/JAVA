@@ -29,20 +29,15 @@ public class GetProfesorController {
     }
 
     @GetMapping("/profesor/{id}")
-    ResponseEntity<Object> getProfesorById(@PathVariable String id, @RequestParam(defaultValue = "simple") String type){
-        try {
+    public Object getProfesorById(@PathVariable String id, @RequestParam(defaultValue = "simple") String type){
+
             if (type.equals("simple")){
-                return new ResponseEntity<>(profesorService.getProfesorById(id), HttpStatus.OK);
+                return profesorService.getProfesorById(id);
             }
             if (type.equals("full")){
-                return new ResponseEntity<>(profesorService.getFullProfesor(id), HttpStatus.OK);
-
+                return profesorService.getFullProfesor(id);
             }else {
                 return null;
             }
-        }catch (Exception e){
-            return new ResponseEntity<>("No existe el profesor", HttpStatus.NOT_FOUND);
-
-        }
     }
 }

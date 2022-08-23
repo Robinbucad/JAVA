@@ -16,14 +16,9 @@ public class DelAsignatura {
     EstAsignaturaService estAsignaturaService;
 
     @DeleteMapping("/estAsignatura/{idAsignatura}")
-    ResponseEntity<Object> deleteAsignatura(@PathVariable String idAsignatura) throws Exception{
+    public String deleteAsignatura(@PathVariable String idAsignatura){
 
-        try {
-            estAsignaturaService.deleteAsignatura(idAsignatura);
-            return new ResponseEntity<>("Asignatura borrada correctamente", HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("Asignatura no existe", HttpStatus.NOT_FOUND);
-        }
+           return estAsignaturaService.deleteAsignatura(idAsignatura);
 
     }
 

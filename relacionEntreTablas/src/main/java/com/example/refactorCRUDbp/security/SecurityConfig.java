@@ -34,38 +34,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        customAuthenticationFilter.setFilterProcessesUrl("/login"); // Cambiamos el login que viene por defecto
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //Todos los usuarios podrán acceder a estos endpoints
 
-        http.authorizeRequests().antMatchers("/login/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/user/**").permitAll(); //LIMITAMOS LO QUE PUEDE HACER EL USER
-        http.authorizeRequests().antMatchers(GET,"/profesor/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/student/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/estAsignatura/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/roles/**").permitAll();
+        http.authorizeRequests()
+                .antMatchers(GET,
+                        "/login/**",
+                        "/user/**",
+                        "/profesor/**",
+                        "/student/**",
+                        "/estAsignatura/**",
+                        "/roles/**"
+                        ).permitAll()
 
-        http.authorizeRequests().antMatchers(POST,"/user/**").hasAnyAuthority("ADMIN"); // SOLO PUEDE POSTEAR EL QUE TENGA ROL ADMIN
-        http.authorizeRequests().antMatchers(POST,"/profesor/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST,"/student/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST,"/estAsignatura/**").hasAnyAuthority("ADMIN");
+        //Solo el admin podra
 
-        http.authorizeRequests().antMatchers(PUT,"/user/**").hasAnyAuthority("ADMIN"); //
-        http.authorizeRequests().antMatchers(PUT,"/profesor/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(PUT,"/student/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(PUT,"/estAsignatura/**").hasAnyAuthority("ADMIN");
+                .antMatchers(POST,
+                        "/user/**",
+                        "/profesor/**",
+                        "/student/**",
+                        "/estAsignatura/**"
+                        ).hasAnyAuthority("ADMIN")
+                .antMatchers(PUT,
+                        "/user/**",
+                        "/profesor/**",
+                        "/student/**",
+                        "/estAsignatura/**"
+                        ).hasAnyAuthority("ADMIN")
+                .antMatchers(DELETE,
+                        "/user/**",
+                        "/profesor/**",
+                        "/student/**",
+                        "/estAsignatura/**"
+                        ).hasAnyAuthority("ADMIN")
 
+                .anyRequest().authenticated(); // TODOS TIENEN QUE ESTAR AUTENTICADOS
 
-
-        http.authorizeRequests().antMatchers(DELETE,"/user/**").hasAnyAuthority("ADMIN"); //
-        http.authorizeRequests().antMatchers(DELETE,"/profesor/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(DELETE,"/student/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(DELETE,"/estAsignatura/**").hasAnyAuthority("ADMIN");
-
-
-        http.authorizeRequests().anyRequest().authenticated(); // TODOS TIENEN QUE ESTAR AUTENTICADOS
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

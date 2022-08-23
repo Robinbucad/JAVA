@@ -3,6 +3,7 @@ package com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Control
 
 import com.example.refactorCRUDbp.Estudiante_asignatura.application.EstAsignaturaService;
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.input.EstAsignaturaInputDTO;
+import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.output.EstAsignaturaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,8 @@ public class PatchAsignaturaController {
     EstAsignaturaService estAsignaturaService;
 
     @PatchMapping("/estAsignatura/{idAsignatura}")
-    ResponseEntity<Object> updateAsignatura(@RequestBody EstAsignaturaInputDTO estAsignaturaInputDTO, @PathVariable String idAsignatura){
-        try {
-            estAsignaturaService.updateEstudianteAsignatura(estAsignaturaInputDTO,idAsignatura);
-            return new ResponseEntity<>(estAsignaturaInputDTO, HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error al actualizar asignatura", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
+    EstAsignaturaOutputDTO updateAsignatura(@RequestBody EstAsignaturaInputDTO estAsignaturaInputDTO, @PathVariable String idAsignatura){
+            return estAsignaturaService.updateEstudianteAsignatura(estAsignaturaInputDTO,idAsignatura);
     }
 
 

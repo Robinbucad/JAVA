@@ -1,5 +1,7 @@
 package com.example.refactorCRUDbp.Profesor.application;
 
+import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
+import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.repository.EstAsignaturaRepository;
 import com.example.refactorCRUDbp.Persona.domain.Persona;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import com.example.refactorCRUDbp.Persona.infraestructure.repository.PersonaRepository;
@@ -11,6 +13,8 @@ import com.example.refactorCRUDbp.Profesor.infraestructure.repository.ProfesorRe
 import com.example.refactorCRUDbp.Student.domain.Student;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
 import com.example.refactorCRUDbp.Student.infraestructure.repository.StudentRepository;
+import com.example.refactorCRUDbp.exception.NotFoundException;
+import com.example.refactorCRUDbp.exception.UnprocessableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
@@ -32,6 +36,9 @@ public class ProfesorService implements IProfesor{
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    EstAsignaturaRepository estAsignaturaRepository;
+
     public List<ProfesorOutputDTO> getALlProfesores(){
         List<Profesor> profesores = profesorRepository.findAll();
         List<ProfesorOutputDTO> profesorOutputDTOS = new ArrayList<>();
@@ -43,7 +50,7 @@ public class ProfesorService implements IProfesor{
 
     }
 
-    public ProfesorOutputDTO createProfesor(ProfesorInputDTO profesorInputDTO) throws Exception{
+    public ProfesorOutputDTO createProfesor(ProfesorInputDTO profesorInputDTO){
         Student student = studentRepository.findById(profesorInputDTO.getIdPersona()).orElse(null);
         Persona persona = personaRepository.findByIdPersona(profesorInputDTO.getIdPersona());
         Profesor profesor = new Profesor(profesorInputDTO,persona);
@@ -53,39 +60,47 @@ public class ProfesorService implements IProfesor{
             profesorRepository.save(profesor);
             return profesorOutputDTO;
         }else {
-            throw new Exception();
+            throw new UnprocessableException("Error al crear el profesor");
         }
 
     }
 
     public String deleteProfesor(String idProfesor){
-        List<Profesor> profesores = profesorRepository.findAll();
 
-        for (Profesor p: profesores){
-            if (p.getIdProfesor().equals(idProfesor)){
-                profesorRepository.delete(p);
-            }
-        }
-
-        return "Profesor con id "+ idProfesor + " borrado correctamente";
-    }
-
-    public ProfesorOutputDTO getProfesorById(String idProfesor) throws Exception{
-        if (profesorRepository.getByIdProfesor(idProfesor) != null){
-            return new ProfesorOutputDTO(profesorRepository.findById(idProfesor).orElse(null));
+        if (profesorRepository.getByIdProfesor(idProfesor) == null){
+            throw new NotFoundException("Profesor no existe");
         }else {
-            throw new Exception();
+            List<Profesor> profesores = profesorRepository.findAll();
+            for (Profesor p: profesores){
+                if (p.getIdProfesor().equals(idProfesor)){
+                    profesorRepository.delete(p);
+                }
+            }
+            return "Profesor con id "+ idProfesor + " borrado correctamente";
+        }
+
+
+    }
+
+    public ProfesorOutputDTO getProfesorById(String idProfesor){
+        if (profesorRepository.getByIdProfesor(idProfesor) != null){
+        ProfesorOutputDTO profesorOutputDTO= new ProfesorOutputDTO(profesorRepository.findById(idProfesor).orElse(null));
+        return profesorOutputDTO;
+        }else {
+            throw new NotFoundException("Profesor no existe");
         }
     }
-    public ProfesorPersonaOutputDTO getFullProfesor(String idProfesor)throws Exception{
+    public ProfesorPersonaOutputDTO getFullProfesor(String idProfesor){
 
         if (profesorRepository.getByIdProfesor(idProfesor)!= null){
             Persona persona = personaRepository.findByIdPersona(idProfesor);
             Profesor profesor = profesorRepository.findById(idProfesor).orElse(null);
-            ProfesorPersonaOutputDTO profesorPersonaOutputDTO = new ProfesorPersonaOutputDTO(new ProfesorOutputDTO(profesor),new PersonaOutputDTO(persona));
+            List<EstudianteAsignatura> estudianteAsignaturas = estAsignaturaRepository.findByIdProfesor(idProfesor);
+
+            ProfesorPersonaOutputDTO profesorPersonaOutputDTO = new ProfesorPersonaOutputDTO(new ProfesorOutputDTO(profesor),new PersonaOutputDTO(persona),estudianteAsignaturas);
             return profesorPersonaOutputDTO;
         }else {
-            throw new Exception();
+            throw new NotFoundException("Profesor no existe");
         }
     }
 

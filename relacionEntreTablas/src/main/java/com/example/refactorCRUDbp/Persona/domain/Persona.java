@@ -54,6 +54,7 @@ public class Persona {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Roles> roles =new ArrayList<>();
 
+    private boolean admin;
 
     public Persona(PersonaInputDTO personaInputDTO){
         setIdPersona(personaInputDTO.getIdPersona());

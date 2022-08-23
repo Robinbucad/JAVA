@@ -13,6 +13,8 @@ import com.example.refactorCRUDbp.Student.infraestructure.controller.input.Stude
 import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentPersonaOutputDTO;
 import com.example.refactorCRUDbp.Student.infraestructure.repository.StudentRepository;
+import com.example.refactorCRUDbp.exception.NotFoundException;
+import com.example.refactorCRUDbp.exception.UnprocessableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,31 +46,30 @@ public class StudentService implements IStudent{
         return studentOutputDTO;
     }
 
-    public StudentOutputDTO createStudent(StudentInputDTO studentInputDTO) throws Exception{
+    public StudentOutputDTO createStudent(StudentInputDTO studentInputDTO){
         Profesor profesor = profesorRepository.findById(studentInputDTO.getIdPersona()).orElse(null);
         Persona persona = personaRepository.findByIdPersona(studentInputDTO.getIdPersona());
         Student student = new Student(studentInputDTO,persona);
-
         if (profesor == null){
             StudentOutputDTO studentOutputDTO = new StudentOutputDTO(student);
             studentRepository.save(student);
             return studentOutputDTO;
         }else {
-            throw new Exception();
+            throw new UnprocessableException("Error al crear estudiante");
         }
 
 
     }
 
-    public StudentOutputDTO getStudentById(String idStudent)throws Exception{
+    public StudentOutputDTO getStudentById(String idStudent){
         if (studentRepository.getStudentByIdStudent(idStudent) != null){
             return new StudentOutputDTO(studentRepository.getStudentByIdStudent(idStudent));
         }else {
-            throw new  Exception();
+            throw new NotFoundException("Estudiante no existe");
         }
     }
 
-    public StudentPersonaOutputDTO getStudentPersona(String idStudent) throws Exception{
+    public StudentPersonaOutputDTO getStudentPersona(String idStudent){
 
         if (studentRepository.getStudentByIdStudent(idStudent)!=null){
             Persona persona = personaRepository.findByIdPersona(idStudent);
@@ -78,13 +79,13 @@ public class StudentService implements IStudent{
             StudentPersonaOutputDTO studentPersonaOutputDTO = new StudentPersonaOutputDTO(new PersonaOutputDTO(persona), new StudentOutputDTO(student), estudianteAsignaturas);
             return studentPersonaOutputDTO;
         }else {
-            throw new Exception();
+            throw new NotFoundException("Persona estudiante no exsite");
         }
     }
 
-    public StudentOutputDTO deleteStudentById(String idStudent) throws Exception{
+    public String deleteStudentById(String idStudent){
         if (studentRepository.getStudentByIdStudent(idStudent) == null){
-            throw new Exception();
+            throw new NotFoundException("Estudiante no existe");
         }else {
             List<Student> students = studentRepository.findAll();
             Student student = studentRepository.getStudentByIdStudent(idStudent);
@@ -94,29 +95,34 @@ public class StudentService implements IStudent{
                     studentRepository.delete(s);
                 }
             }
-            return new StudentOutputDTO(student);
+            return "Estudiante con id "+ idStudent + " borrado correctamente";
         }
     }
 
     public StudentOutputDTO updateStudent(StudentInputDTO studentInputDTO, String idStudent){
         Student student = studentRepository.getStudentByIdStudent(idStudent);
         List<Student> students = studentRepository.findAll();
+
         for (Student s:students){
-            if (s.getIdStudent().equals(idStudent)){
-                if (studentInputDTO.getBranch() != null){
-                    student.setBranch(studentInputDTO.getBranch());
-                    s.setBranch(studentInputDTO.getBranch());
-                }
-                if (studentInputDTO.getComments() != null){
-                    student.setComments(studentInputDTO.getComments());
-                    s.setComments(studentInputDTO.getComments());
-                }
-                if (studentInputDTO.getNumHoursWeek() != 0){
-                    student.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
-                    s.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
-                }
-                studentRepository.save(s);
-            }
+           if (s.getIdStudent() != idStudent){
+               throw new NotFoundException("Estudiante no existe");
+           }else {
+               if (s.getIdStudent().equals(idStudent)){
+                   if (studentInputDTO.getBranch() != null){
+                       student.setBranch(studentInputDTO.getBranch());
+                       s.setBranch(studentInputDTO.getBranch());
+                   }
+                   if (studentInputDTO.getComments() != null){
+                       student.setComments(studentInputDTO.getComments());
+                       s.setComments(studentInputDTO.getComments());
+                   }
+                   if (studentInputDTO.getNumHoursWeek() != 0){
+                       student.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
+                       s.setNumHoursWeek(studentInputDTO.getNumHoursWeek());
+                   }
+                   studentRepository.save(s);
+               }
+           }
         }
         return new StudentOutputDTO(student);
     }

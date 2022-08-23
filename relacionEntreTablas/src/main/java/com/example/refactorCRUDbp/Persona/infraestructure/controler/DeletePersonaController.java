@@ -16,14 +16,8 @@ public class DeletePersonaController {
     PersonaService personaService;
 
     @DeleteMapping("/user/id/{idPersona}")
-    public ResponseEntity<Object> deleteUser(@PathVariable String idPersona){
-        try {
-            personaService.deleteUser(idPersona);
-            return new ResponseEntity<>("Borrada correctamente", HttpStatus.NO_CONTENT);
-        }catch (Exception e){
-            return new ResponseEntity<>("No existe ususario", HttpStatus.NOT_FOUND);
-        }
-
+    public String deleteUser(@PathVariable String idPersona){
+        return personaService.deleteUser(idPersona);
     }
 
 }

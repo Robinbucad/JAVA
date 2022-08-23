@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface IPersona {
 
-    PersonaOutputDTO createUser(PersonaInputDTO personaInputDTO) throws Exception;
+    PersonaOutputDTO createUser(PersonaInputDTO personaInputDTO);
 
-    PersonaOutputDTO getUserByID(String idPersona) throws Exception;
+    PersonaOutputDTO getUserByID(String idPersona);
 
-    PersonaOutputDTO findByUsername(String username) throws Exception;
+    PersonaOutputDTO findByUsername(String username);
 
     List<PersonaOutputDTO> getALlPersonas();
 
-    PersonaOutputDTO deleteUser(String idPersona) throws Exception;
+    String deleteUser(String idPersona);
 
-    PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, String idPersona) throws Exception;
+    PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, String idPersona);
 
     void addRoleToUser(String username, String rolename);
     Roles saveRole(Roles role);

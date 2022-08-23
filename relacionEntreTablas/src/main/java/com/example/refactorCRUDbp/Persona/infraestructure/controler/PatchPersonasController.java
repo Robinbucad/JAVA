@@ -2,6 +2,7 @@ package com.example.refactorCRUDbp.Persona.infraestructure.controler;
 
 import com.example.refactorCRUDbp.Persona.application.PersonaService;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.PersonaInputDTO;
+import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,8 @@ public class PatchPersonasController {
     PersonaService personaService;
 
     @PatchMapping("/user/id/{idPersona}")
-    public ResponseEntity<String> updateUser(@RequestBody PersonaInputDTO personaInputDTO, @PathVariable String idPersona){
-
-        try {
-            personaService.updateUsername(personaInputDTO, idPersona);
-            return new ResponseEntity<>("Nombre usuario actualizado correctamente. Nuevo nombre: " + personaInputDTO.getUsername(), HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error al modificar, el usuario debe tener entre 6 y 10 caracteres.", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-
-
+    public PersonaOutputDTO updateUser(@RequestBody PersonaInputDTO personaInputDTO, @PathVariable String idPersona){
+            return personaService.updateUsername(personaInputDTO, idPersona);
     }
 
 }

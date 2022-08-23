@@ -3,6 +3,7 @@ package com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Control
 
 import com.example.refactorCRUDbp.Estudiante_asignatura.application.EstAsignaturaService;
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.input.EstAsignaturaInputDTO;
+import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.output.EstAsignaturaOutputDTO;
 import jdk.javadoc.doclet.Reporter;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,9 @@ public class PostAsignaturaController {
     EstAsignaturaService estAsignaturaService;
 
     @PostMapping("estAsignatura")
-    ResponseEntity<Object> createAsignatura(@RequestBody EstAsignaturaInputDTO estAsignaturaInputDTO){
-        try {
-            estAsignaturaService.createAsignatura(estAsignaturaInputDTO);
-            return new ResponseEntity<>(estAsignaturaInputDTO, HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error al crear asignatura", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
+    EstAsignaturaOutputDTO createAsignatura(@RequestBody EstAsignaturaInputDTO estAsignaturaInputDTO){
+           return estAsignaturaService.createAsignatura(estAsignaturaInputDTO);
+
     }
 
     @PostMapping("/estAsignatura/add")

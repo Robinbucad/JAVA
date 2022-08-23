@@ -35,41 +35,30 @@ public class GetPersonasController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/id/{idPersona}")
-    public ResponseEntity<Object> getUserByID(@PathVariable String idPersona, @RequestParam(defaultValue = "simple") String type){
-        try{
+    public Object getUserByID(@PathVariable String idPersona, @RequestParam(defaultValue = "simple") String type){
+
             if (type.equals("simple")){
-                PersonaOutputDTO personaOutputDTO = personaService.getUserByID(idPersona);
-                return new ResponseEntity<>(personaOutputDTO,HttpStatus.OK);
+               return personaService.getUserByID(idPersona);
             }
             else if (type.equals("full")){
-                return new ResponseEntity<>(studentService.getStudentPersona(idPersona), HttpStatus.OK);
+                return studentService.getStudentPersona(idPersona);
             }
             else {
                 return null;
             }
-        }catch (Exception e){
-            return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
-        }
-
-
     }
 
     @GetMapping("/user/username/{username}")
-    public ResponseEntity<Object> getPersonaByUsername(@PathVariable String username, @RequestParam(defaultValue = "simple") String type){
-        try{
+    public Object getPersonaByUsername(@PathVariable String username, @RequestParam(defaultValue = "simple") String type){
             if (type.equals("simple")){
-                PersonaOutputDTO personaOutputDTO = personaService.findByUsername(username);
-                return new ResponseEntity<>(personaOutputDTO,HttpStatus.OK);
+               return personaService.findByUsername(username);
             }
             else if (type.equals("full")){
-                return new ResponseEntity<>(studentService.getStudentPersona(username), HttpStatus.OK);
+                return studentService.getStudentPersona(username);
             }
             else {
                 return null;
             }
-        }catch (Exception e){
-            return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
-        }
 
     }
 

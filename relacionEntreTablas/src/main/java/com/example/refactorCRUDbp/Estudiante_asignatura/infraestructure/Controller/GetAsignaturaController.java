@@ -21,23 +21,14 @@ public class GetAsignaturaController {
 
 
     @GetMapping("/estAsignatura")
-    ResponseEntity<Object> getAllAsignaturas(){
-        try {
-            List<EstAsignaturaOutputDTO> estAsignaturaOutputDTO= estAsignaturaService.getAllAsignaturas();
-            return new ResponseEntity<>(estAsignaturaOutputDTO, HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error al recoger todas las asignaturas", HttpStatus.NOT_FOUND);
-        }
+    List<EstAsignaturaOutputDTO> getAllAsignaturas(){
+        return estAsignaturaService.getAllAsignaturas();
     }
 
     @GetMapping("/estAsignatura/{idAsignatura}")
-    ResponseEntity<Object> getEstAsignaturaById(@PathVariable String idAsignatura){
-        try {
-            EstAsignaturaOutputDTO estAsignaturaOutputDTO = estAsignaturaService.getEstAsignaturaById(idAsignatura);
-            return new ResponseEntity<>(estAsignaturaOutputDTO, HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>("No existe la asignatura", HttpStatus.NOT_FOUND);
-        }
+    EstAsignaturaOutputDTO getEstAsignaturaById(@PathVariable String idAsignatura){
+       return estAsignaturaService.getEstAsignaturaById(idAsignatura);
+
     }
 
 

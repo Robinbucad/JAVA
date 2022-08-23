@@ -5,13 +5,18 @@ import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controll
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.output.EstAsignaturaOutputDTO;
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.repository.EstAsignaturaRepository;
 import com.example.refactorCRUDbp.Persona.infraestructure.repository.PersonaRepository;
+import com.example.refactorCRUDbp.Profesor.domain.Profesor;
+import com.example.refactorCRUDbp.Profesor.infraestructure.repository.ProfesorRepository;
 import com.example.refactorCRUDbp.Student.domain.Student;
 import com.example.refactorCRUDbp.Student.infraestructure.repository.StudentRepository;
+import com.example.refactorCRUDbp.exception.NotFoundException;
+import com.example.refactorCRUDbp.exception.UnprocessableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EstAsignaturaService implements IEstAsignatura{
@@ -23,6 +28,9 @@ public class EstAsignaturaService implements IEstAsignatura{
 
     @Autowired
     PersonaRepository personaRepository;
+
+    @Autowired
+    ProfesorRepository profesorRepository;
 
     public List<EstAsignaturaOutputDTO> getAllAsignaturas(){
         List<EstudianteAsignatura> estudianteAsignatura = estAsignaturaRepository.findAll();
@@ -38,25 +46,41 @@ public class EstAsignaturaService implements IEstAsignatura{
 
     public EstAsignaturaOutputDTO createAsignatura(EstAsignaturaInputDTO estAsignaturaInputDTO){
          EstudianteAsignatura estudianteAsignatura = new EstudianteAsignatura(estAsignaturaInputDTO);
-         Student student = studentRepository.getStudentByIdStudent(estAsignaturaInputDTO.getIdStudent());
-         estudianteAsignatura.setIdStudent(student.getIdStudent());
-         estAsignaturaRepository.save(estudianteAsignatura);
+         Student student =studentRepository.getStudentByIdStudent(estAsignaturaInputDTO.getIdStudent());
+         Profesor profesor = profesorRepository.getByIdProfesor(estAsignaturaInputDTO.getIdProfesor());
+
+         if (student == null && profesor == null){
+             throw  new UnprocessableException("Error al crear asignatura");
+         }
+
+         if (estAsignaturaInputDTO.getIdProfesor() != null && estAsignaturaInputDTO.getIdStudent() != null){
+             return null;
+         }else if (student == null){estudianteAsignatura.setIdProfesor(profesor.getIdProfesor());
+            estAsignaturaRepository.save(estudianteAsignatura);
+         } else if (profesor == null){
+             estudianteAsignatura.setIdStudent(student.getIdStudent());
+             estAsignaturaRepository.save(estudianteAsignatura);
+         }
 
          EstAsignaturaOutputDTO estAsignaturaOutputDTO = new EstAsignaturaOutputDTO(estudianteAsignatura);
          return estAsignaturaOutputDTO;
 
     }
 
-    public EstAsignaturaOutputDTO getEstAsignaturaById(String idAsignatura)throws Exception{
-        return  new EstAsignaturaOutputDTO(estAsignaturaRepository.findByIdAsignatura(idAsignatura));
+    public EstAsignaturaOutputDTO getEstAsignaturaById(String idAsignatura){
+        if (estAsignaturaRepository.findByIdAsignatura(idAsignatura) == null){
+            throw  new NotFoundException("Asignatura no existe crack");
+        }else {
+            return  new EstAsignaturaOutputDTO(estAsignaturaRepository.findByIdAsignatura(idAsignatura));
+
+        }
     }
 
-    public EstAsignaturaOutputDTO deleteAsignatura(String idAsignatura) throws Exception {
+    public String deleteAsignatura(String idAsignatura) {
 
         if (estAsignaturaRepository.findByIdAsignatura(idAsignatura) == null ){
-            throw new Exception();
+            throw new NotFoundException("Asignatura no existe ");
         }
-
         else {
             List<EstudianteAsignatura> estudianteAsignaturas = estAsignaturaRepository.findAll();
             EstudianteAsignatura estAsignatura = estAsignaturaRepository.findByIdAsignatura(idAsignatura);
@@ -65,34 +89,37 @@ public class EstAsignaturaService implements IEstAsignatura{
                     estAsignaturaRepository.delete(e);
                 }
             }
-            return new EstAsignaturaOutputDTO(estAsignatura);
+            return "Asignatura con id " + idAsignatura + " borrada correctamente";
         }
-
     }
 
     public EstAsignaturaOutputDTO updateEstudianteAsignatura(EstAsignaturaInputDTO estAsignaturaInputDTO, String idAsignatura){
         List<EstudianteAsignatura> estudianteAsignaturaList = estAsignaturaRepository.findAll();
         EstudianteAsignatura estAsignatura = estAsignaturaRepository.findByIdAsignatura(idAsignatura);
 
-        for (EstudianteAsignatura e: estudianteAsignaturaList){
-            if (estAsignaturaInputDTO.getAsignatura() !=  null){
-                estAsignatura.setAsignatura(estAsignaturaInputDTO.getAsignatura());
-                e.setAsignatura(estAsignaturaInputDTO.getAsignatura());
+        if (estAsignatura == null){
+            throw new NotFoundException("Error al encontrar la asignatura");
+        }else {
+            for (EstudianteAsignatura e: estudianteAsignaturaList){
+                if (estAsignaturaInputDTO.getAsignatura() !=  null){
+                    estAsignatura.setAsignatura(estAsignaturaInputDTO.getAsignatura());
+                    e.setAsignatura(estAsignaturaInputDTO.getAsignatura());
+                }
+
+                estAsignatura.setComments(estAsignaturaInputDTO.getComments());
+                e.setComments(estAsignaturaInputDTO.getComments());
+
+                estAsignatura.setInitialDate(estAsignaturaInputDTO.getInitialDate());
+                e.setInitialDate(estAsignaturaInputDTO.getInitialDate());
+
+                estAsignatura.setFinishDate(estAsignaturaInputDTO.getFinishDate());
+                e.setFinishDate(estAsignaturaInputDTO.getFinishDate());
+
+                estAsignaturaRepository.save(e);
             }
-
-            estAsignatura.setComments(estAsignaturaInputDTO.getComments());
-            e.setComments(estAsignaturaInputDTO.getComments());
-
-            estAsignatura.setInitialDate(estAsignaturaInputDTO.getInitialDate());
-            e.setInitialDate(estAsignaturaInputDTO.getInitialDate());
-
-            estAsignatura.setFinishDate(estAsignaturaInputDTO.getFinishDate());
-            e.setFinishDate(estAsignaturaInputDTO.getFinishDate());
-
-            estAsignaturaRepository.save(e);
+            return new EstAsignaturaOutputDTO(estAsignatura);
         }
 
-        return new EstAsignaturaOutputDTO(estAsignatura);
     }
 
 

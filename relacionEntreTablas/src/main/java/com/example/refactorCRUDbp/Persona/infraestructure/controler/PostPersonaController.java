@@ -19,13 +19,8 @@ public class PostPersonaController {
     PersonaService personaService;
 
     @PostMapping("/user")
-    public ResponseEntity<Object> createUser(@RequestBody PersonaInputDTO personaInputDTO){
-        try {
-            PersonaOutputDTO personaOutputDTOPost = personaService.createUser(personaInputDTO);
-            return new ResponseEntity<>(personaOutputDTOPost, HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("El nombre de usuario debe tener entre 6 y 10 caracteres.", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
+    public PersonaOutputDTO createUser(@RequestBody PersonaInputDTO personaInputDTO){
+        return personaService.createUser(personaInputDTO);
     }
 
     @PostMapping("/user/addrole")

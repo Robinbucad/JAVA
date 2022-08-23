@@ -2,6 +2,7 @@ package com.example.refactorCRUDbp.Student.infraestructure.controller;
 
 import com.example.refactorCRUDbp.Student.application.StudentService;
 import com.example.refactorCRUDbp.Student.infraestructure.controller.input.StudentInputDTO;
+import com.example.refactorCRUDbp.Student.infraestructure.controller.output.StudentOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,8 @@ public class PatchStudentController {
     StudentService studentService;
 
     @PatchMapping("/student/{idStudent}")
-    public ResponseEntity<Object> updateStudent(@RequestBody StudentInputDTO studentInputDTO, @PathVariable String idStudent){
-        try {
-
-            studentService.updateStudent(studentInputDTO,idStudent);
-            return new ResponseEntity<>(studentInputDTO,HttpStatus.OK);
-
-        }catch (Exception e){
-            return new ResponseEntity<>("Error al actualizar estudante", HttpStatus.UNPROCESSABLE_ENTITY);
-        }
+    public StudentOutputDTO updateStudent(@RequestBody StudentInputDTO studentInputDTO, @PathVariable String idStudent){
+            return studentService.updateStudent(studentInputDTO,idStudent);
     }
 
 }

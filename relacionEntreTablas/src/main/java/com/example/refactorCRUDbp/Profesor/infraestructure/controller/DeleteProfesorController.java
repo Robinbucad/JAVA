@@ -15,8 +15,8 @@ public class DeleteProfesorController {
     ProfesorService profesorService;
 
     @DeleteMapping("/profesor/{idProfesor}")
-    public ResponseEntity<String> deleteProfesor(@PathVariable String idProfesor){
-        return new ResponseEntity<>(profesorService.deleteProfesor(idProfesor), HttpStatus.OK);
+    public String deleteProfesor(@PathVariable String idProfesor){
+        return profesorService.deleteProfesor(idProfesor);
     }
 
 }

@@ -11,9 +11,9 @@ public interface IEstAsignatura {
 
     EstAsignaturaOutputDTO createAsignatura(EstAsignaturaInputDTO estAsignaturaInputDTO);
 
-    EstAsignaturaOutputDTO getEstAsignaturaById(String idAsignatura) throws Exception;
+    EstAsignaturaOutputDTO getEstAsignaturaById(String idAsignatura);
 
-    EstAsignaturaOutputDTO deleteAsignatura(String idAsignatura) throws Exception;
+    String deleteAsignatura(String idAsignatura);
 
     EstAsignaturaOutputDTO updateEstudianteAsignatura(EstAsignaturaInputDTO estAsignaturaInputDTO, String idAsignatura);
 

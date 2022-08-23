@@ -1,9 +1,12 @@
 package com.example.refactorCRUDbp.Profesor.infraestructure.controller.output;
 
+import com.example.refactorCRUDbp.Estudiante_asignatura.domain.EstudianteAsignatura;
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class ProfesorPersonaOutputDTO {
@@ -25,10 +28,13 @@ public class ProfesorPersonaOutputDTO {
     private String image_url;
     private Date termination_date;
 
-    public ProfesorPersonaOutputDTO(ProfesorOutputDTO profesorOutputDTO, PersonaOutputDTO personaOutputDTO){
+    private List<EstudianteAsignatura> asignaturasImpartir = new ArrayList<>();
+
+    public ProfesorPersonaOutputDTO(ProfesorOutputDTO profesorOutputDTO, PersonaOutputDTO personaOutputDTO, List<EstudianteAsignatura> estudianteAsignatura){
         setIdProfesor(profesorOutputDTO.getIdProfesor());
         setComments(profesorOutputDTO.getComments());
         setBranch(profesorOutputDTO.getBranch());
+        setAsignaturasImpartir(estudianteAsignatura);
 
         setIdPersona(personaOutputDTO.getIdPersona());
         setUsername(personaOutputDTO.getUsername());

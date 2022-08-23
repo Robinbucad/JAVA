@@ -1,6 +1,7 @@
 package com.example.refactorCRUDbp.Estudiante_asignatura.domain;
 
 import com.example.refactorCRUDbp.Estudiante_asignatura.infraestructure.Controller.input.EstAsignaturaInputDTO;
+import com.example.refactorCRUDbp.Profesor.domain.Profesor;
 import com.example.refactorCRUDbp.SequenceIdGenerator.StringPrefixedSequenceIdGenerator;
 import com.example.refactorCRUDbp.Student.domain.Student;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class EstudianteAsignatura {
     private Date initialDate;
     private Date finishDate;
     private String idStudent;
-
+    private String idProfesor;
 
 
     public EstudianteAsignatura(EstAsignaturaInputDTO estAsignaturaInputDTO){

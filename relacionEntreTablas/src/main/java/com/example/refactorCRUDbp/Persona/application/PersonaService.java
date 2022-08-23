@@ -6,6 +6,8 @@ import com.example.refactorCRUDbp.Persona.infraestructure.controler.input.Person
 import com.example.refactorCRUDbp.Persona.infraestructure.controler.output.PersonaOutputDTO;
 import com.example.refactorCRUDbp.Persona.infraestructure.repository.PersonaRepository;
 import com.example.refactorCRUDbp.Persona.infraestructure.repository.RolesRepository;
+import com.example.refactorCRUDbp.exception.NotFoundException;
+import com.example.refactorCRUDbp.exception.UnprocessableException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,6 +50,7 @@ public class PersonaService implements IPersona, UserDetailsService {
         persona.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
+
         return new org.springframework.security.core.userdetails.User(persona.getUsername(),persona.getPassword(), authorities);
     }
 
@@ -61,9 +64,9 @@ public class PersonaService implements IPersona, UserDetailsService {
         return personasDTO;
 
     }
-    public PersonaOutputDTO createUser(PersonaInputDTO personaInputDTO) throws Exception{
+    public PersonaOutputDTO createUser(PersonaInputDTO personaInputDTO){
        if (personaInputDTO.getUsername().length() < 6 || personaInputDTO.getUsername().length() > 10){
-           throw new Exception();
+           throw new UnprocessableException("El usuario debe tener entre 6 y 10 caracteres");
        }else {
            personaInputDTO.setPassword(passwordEncoder.encode(personaInputDTO.getPassword()));
            Persona persona = new Persona(personaInputDTO);
@@ -74,45 +77,44 @@ public class PersonaService implements IPersona, UserDetailsService {
     }
 
 
-    public PersonaOutputDTO getUserByID(String idPersona)throws Exception{
+    public PersonaOutputDTO getUserByID(String idPersona){
         if (personaRepository.findByIdPersona(idPersona) == null){
-            throw new Exception("404, usuario no existe");
+            throw new NotFoundException("Usuario no existe");
         }else {
             return new PersonaOutputDTO(personaRepository.findByIdPersona(idPersona));
         }
     }
 
-    public PersonaOutputDTO findByUsername(String username) throws Exception{
+    public PersonaOutputDTO findByUsername(String username) {
         if (personaRepository.findByUsername(username) == null){
-            throw new Exception();
+            throw new NotFoundException("Usuario no existe");
         }else {
              return new PersonaOutputDTO(personaRepository.findByUsername(username));
         }
     }
 
-    public PersonaOutputDTO deleteUser(String idPersona)throws Exception{
+    public String deleteUser(String idPersona){
 
         if (personaRepository.findByIdPersona(idPersona) == null){
-            throw new Exception("404, user doesn't exist");
+            throw new NotFoundException("Usuario no existe");
         }else {
             List<Persona> personas = personaRepository.findAll();
-            Persona persona = personaRepository.findByIdPersona(idPersona);
             for (Persona e:personas){
                 if (e.getIdPersona().equals(idPersona)){
                     personaRepository.delete(e);
                 }
             }
-            return new PersonaOutputDTO(persona);
+            return "Usuario con id " + idPersona + " borrado correctamente";
         }
     }
 
-    public PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, String idPersona) throws Exception {
+    public PersonaOutputDTO updateUsername(PersonaInputDTO personaInputDTO, String idPersona) {
         Persona persona = personaRepository.findByIdPersona(idPersona);
         List<Persona> personas =personaRepository.findAll();
         for (Persona e:personas){
             if (e.getIdPersona().equals(idPersona)){
                 if (personaInputDTO.getUsername().length() < 6 || personaInputDTO.getUsername().length() > 10){
-                    throw new Exception();
+                    throw new UnprocessableException("El usuario debe tener entre 6 y 10 caracteres");
                 }else {
                     persona.setUsername(personaInputDTO.getUsername());
                     e.setUsername(personaInputDTO.getUsername());

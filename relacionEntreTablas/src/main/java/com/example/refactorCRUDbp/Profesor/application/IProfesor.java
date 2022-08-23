@@ -9,10 +9,10 @@ import java.util.List;
 public interface IProfesor {
 
     List<ProfesorOutputDTO> getALlProfesores();
-    ProfesorOutputDTO createProfesor(ProfesorInputDTO profesorInputDTO) throws Exception;
+    ProfesorOutputDTO createProfesor(ProfesorInputDTO profesorInputDTO);
     String deleteProfesor(String idProfesor);
 
-    ProfesorPersonaOutputDTO getFullProfesor(String idProfesor)throws Exception;
+    ProfesorPersonaOutputDTO getFullProfesor(String idProfesor);
 
     ProfesorOutputDTO getProfesorById(String idProfesor)throws Exception;
 
