@@ -45,17 +45,15 @@ public class SecurityConfig{
         //Todos los usuarios podrán acceder a estos endpoints
 
         http.authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers(GET,
-                        "/login/**",
                         "/user/**",
                         "/profesor/**",
                         "/student/**",
                         "/estAsignatura/**",
                         "/roles/**"
                 ).permitAll()
-
                 //Solo el admin podra
-
                 .antMatchers(POST,
                         "/user/**",
                         "/profesor/**",
