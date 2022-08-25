@@ -1,5 +1,6 @@
 package com.jdbcTemplate.persona.application;
 
+import com.jdbcTemplate.exception.NotFoundException;
 import com.jdbcTemplate.persona.controller.dto.PersonaRecord;
 
 import java.util.List;

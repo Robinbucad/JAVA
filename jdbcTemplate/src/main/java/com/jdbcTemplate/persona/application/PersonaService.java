@@ -1,5 +1,6 @@
 package com.jdbcTemplate.persona.application;
 
+import com.jdbcTemplate.exception.NotFoundException;
 import com.jdbcTemplate.persona.controller.dto.PersonaRecord;
 import com.jdbcTemplate.persona.controller.repository.PersonaDataAccessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,26 @@ public class PersonaService implements IPersonaDAS{
     }
 
     public Optional<PersonaRecord> getPersonaById(int id){
-        return personaDAS.getPersonaById(id);
+            return Optional.ofNullable(personaDAS.getPersonaById(id).orElseThrow(() -> new NotFoundException("Not found")));
     }
 
     public String deletePersona(int id){
-        personaDAS.deletePersona(id);
-        return "Persona con id "+id + " borrada correctamente";
+        Optional<PersonaRecord> personas = personaDAS.getPersonaById(id);
+        if (personas.isEmpty()){
+            throw new NotFoundException("Not found");
+        }else {
+            personaDAS.deletePersona(id);
+            return "Persona con id "+id + " borrada correctamente";
+        }
     }
 
     public PersonaRecord updatePersona(PersonaRecord personaRecord, int id){
-        return personaDAS.updatePersona(personaRecord,id);
+        Optional<PersonaRecord> personas = personaDAS.getPersonaById(id);
+        if (personas.isEmpty()){
+            throw new NotFoundException("Not found");
+        }else {
+            return personaDAS.updatePersona(personaRecord,id);
+        }
     }
 
 }
