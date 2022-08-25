@@ -20,7 +20,7 @@ public class PersonaDataAccessService implements IPersonaDAS {
     private final String GET_PERSONAS_QUERY = "SELECT * FROM personas";
     private final String INSERT_PERSONAS_QUERY = "INSERT INTO personas(name,password,surname,username,city,company_email,personal_email,active,url_image,creation_date,termination_date)VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-    private final String GET_PERSONABYID_QUERY = " SELECT id_persona,name,password,surname,username,city,company_email,personal_email,active,url_image,creation_date,termination_date FROM personas WHERE id_persona = ?";
+    private final String GET_PERSONABYID_QUERY = " SELECT * FROM personas WHERE id_persona = ?";
     private final String DELETE_PERSONA_QUERY = "DELETE FROM personas  WHERE id_persona = ?";
     private final String UPDATE_PERSONA_QUERY= "UPDATE personas SET name = ?,password = ?,surname = ?,username = ?,city = ?,company_email = ?,personal_email = ?,active = ?,url_image = ?,creation_date = ?,termination_date = ? WHERE id_persona = ?";
 
