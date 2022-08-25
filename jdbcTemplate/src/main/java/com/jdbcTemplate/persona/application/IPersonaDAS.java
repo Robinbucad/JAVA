@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface IPersonaDAS {
 
     List<PersonaRecord> getAllPersonas();
-    int insertPersona(PersonaRecord personaRecord);
+    int addNewPersona(PersonaRecord personaRecord);
 
     Optional<PersonaRecord> getPersonaById(int id);
 
-    int deletePersona(int id);
+    String deletePersona(int id);
 
     PersonaRecord updatePersona(PersonaRecord personaRecord, int id);
 

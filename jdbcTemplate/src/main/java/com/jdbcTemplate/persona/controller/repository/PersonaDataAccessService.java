@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class PersonaDataAccessService implements IPersonaDAS {
+public class PersonaDataAccessService {
 
 
     @Autowired
@@ -24,13 +24,13 @@ public class PersonaDataAccessService implements IPersonaDAS {
     private final String DELETE_PERSONA_QUERY = "DELETE FROM personas  WHERE id_persona = ?";
     private final String UPDATE_PERSONA_QUERY= "UPDATE personas SET name = ?,password = ?,surname = ?,username = ?,city = ?,company_email = ?,personal_email = ?,active = ?,url_image = ?,creation_date = ?,termination_date = ? WHERE id_persona = ?";
 
-    @Override
+
     public List<PersonaRecord> getAllPersonas(){
         List<PersonaRecord> personasList = jdbcTemplate.query(GET_PERSONAS_QUERY,new PersonasRowMapper());
         return personasList;
     }
 
-    @Override
+
     public int insertPersona(PersonaRecord personaRecord){
         return jdbcTemplate.update(
                 INSERT_PERSONAS_QUERY,
@@ -48,7 +48,7 @@ public class PersonaDataAccessService implements IPersonaDAS {
         );
     }
 
-    @Override
+
     public Optional<PersonaRecord> getPersonaById(int id){
         return jdbcTemplate.query(GET_PERSONABYID_QUERY,new PersonasRowMapper(),id)
                 .stream()

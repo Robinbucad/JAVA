@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonaService {
+public class PersonaService implements IPersonaDAS{
 
 
     @Autowired
@@ -20,8 +20,8 @@ public class PersonaService {
         return personaDAS.getAllPersonas();
     }
 
-    public void addNewPersona(PersonaRecord personaRecord){
-        personaDAS.insertPersona(personaRecord);
+    public int addNewPersona(PersonaRecord personaRecord){
+       return personaDAS.insertPersona(personaRecord);
     }
 
     public Optional<PersonaRecord> getPersonaById(int id){
